@@ -2,7 +2,7 @@
   
     <main>
         <div class="feedBanner">
-            <img src="/img/banner.png" alt="">
+            <img src="/src/images/banner.png" alt="">
         </div>
         <div class="lotsContainer">
             <div class="lotsContainerHead">

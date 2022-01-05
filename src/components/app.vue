@@ -1,5 +1,7 @@
 <template>
   <div>
+    <login></login>
+
     <xheader></xheader>
 
     <router-view></router-view>
@@ -11,11 +13,14 @@
 <script>
 import xheader from './header';
 import xfooter from './footer';
+import login from './loginForm';
+
 export default {
   components: {
     xheader,
-    xfooter
-  }
+    xfooter,
+    login,
+  },
 }
 </script>
 

@@ -1,5 +1,4 @@
 <template>
-  
     <main>
         <div class="winnersPageContainer">
             <div class="winnersPageContainerHead">
@@ -10,133 +9,24 @@
                     <th>Winner</th>
                     <th>Lottery</th>
                 </tr>
-                <tr>
+                <tr
+                    v-for="data in winners"
+                >
                     <td>
-                        <a href="">Bear Grylls</a>
+                      <router-link
+                          :to="{name: 'profile', params: {id: data.id}}">
+                        {{ data.name }},
+                      </router-link>
                     </td>
                     <td class="lotteryRightCell">
                         <div class="rightCellContainer">
                             <div class="lotteryCellImageContainer">
                                 <img src="" alt="">
                             </div>
-                            <a href="">A very long interesting title of lot</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">Bear Grylls</a>
-                    </td>
-                    <td class="lotteryRightCell">
-                        <div class="rightCellContainer">
-                            <div class="lotteryCellImageContainer">
-                                <img src="" alt="">
-                            </div>
-                            <a href="">A very long interesting title of lot</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">Bear Grylls</a>
-                    </td>
-                    <td class="lotteryRightCell">
-                        <div class="rightCellContainer">
-                            <div class="lotteryCellImageContainer">
-                                <img src="" alt="">
-                            </div>
-                            <a href="">A very long interesting title of lot</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">Bear Grylls</a>
-                    </td>
-                    <td class="lotteryRightCell">
-                        <div class="rightCellContainer">
-                            <div class="lotteryCellImageContainer">
-                                <img src="" alt="">
-                            </div>
-                            <a href="">A very long interesting title of lot</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">Bear Grylls</a>
-                    </td>
-                    <td class="lotteryRightCell">
-                        <div class="rightCellContainer">
-                            <div class="lotteryCellImageContainer">
-                                <img src="" alt="">
-                            </div>
-                            <a href="">A very long interesting title of lot</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">Bear Grylls</a>
-                    </td>
-                    <td class="lotteryRightCell">
-                        <div class="rightCellContainer">
-                            <div class="lotteryCellImageContainer">
-                                <img src="" alt="">
-                            </div>
-                            <a href="">A very long interesting title of lot</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">Bear Grylls</a>
-                    </td>
-                    <td class="lotteryRightCell">
-                        <div class="rightCellContainer">
-                            <div class="lotteryCellImageContainer">
-                                <img src="" alt="">
-                            </div>
-                            <a href="">A very long interesting title of lot</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">Bear Grylls</a>
-                    </td>
-                    <td class="lotteryRightCell">
-                        <div class="rightCellContainer">
-                            <div class="lotteryCellImageContainer">
-                                <img src="" alt="">
-                            </div>
-                            <a href="">A very long interesting title of lot</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">Bear Grylls</a>
-                    </td>
-                    <td class="lotteryRightCell">
-                        <div class="rightCellContainer">
-                            <div class="lotteryCellImageContainer">
-                                <img src="" alt="">
-                            </div>
-                            <a href="">A very long interesting title of lot</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="">Bear Grylls</a>
-                    </td>
-                    <td class="lotteryRightCell">
-                        <div class="rightCellContainer">
-                            <div class="lotteryCellImageContainer">
-                                <img src="" alt="">
-                            </div>
-                            <a href="">A very long interesting title of lot</a>
+                          <router-link
+                              :to="{name: 'lot', params: {id: data.lid}}">
+                            {{ data.lot }},
+                          </router-link>
                         </div>
                     </td>
                 </tr>
@@ -147,7 +37,13 @@
 
 <script>
 export default {
-
+  mounted() {
+    this.$store.dispatch('fetchWinners', this.$route.params.id);
+  },
+  computed: {
+    winners() {
+      return this.$store.getters.getWinners;
+    },
+  }
 }
-
 </script>

@@ -7,7 +7,7 @@
         <div class="lotGridCardInfo">
             <strong>{{ lot.name }}</strong>
             <div class="lotGridCardInfoBot">
-                <p>by creator {{ lot.creator_id }}</p>
+                <p>by {{ lot.creator }}</p>
                 <router-link :to="{name: 'lot', params: {id: lot.id}}">Join</router-link>
             </div>
         </div>
