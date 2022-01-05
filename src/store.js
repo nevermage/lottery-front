@@ -1,41 +1,88 @@
-import Vue from "vue";
 
+import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    lots: [
-    ],
-    users: []
+    lots: [],
+    users: [],
+    lot: [],
+    user: [],
+    own: [],
+    won: [],
+    winners: [],
   },
 
   getters: {
     getLots: (state) => state.lots,
     getUsers: (state) => state.users,
+    getLot: (state) => state.lot,
+    getUser: (state) => state.user,
+    getOwn: (state) => state.own,
+    getWon: (state) => state.won,
+    getWinners: (state) => state.winners,
   },
   actions: {
     fetchLots: async (context) => {
-      const responce = await fetch('/api/getlots');
-      let lots = await responce.json();
-      console.log(lots);
-      context.commit('addLotsToState', lots.data);
+      const response = await fetch('http://localhost/api/lots');
+      let lots = await response.json();
+      context.commit('addLotsToState', lots);
+    },
+    fetchLot: async ({commit}, id) => {
+      const response = await fetch('http://localhost/api/lot/' + id);
+      let lot = await response.json();
+      commit('addLotToState', lot[0])
     },
     fetchUsers: async (context) => {
-      const responce = await fetch('/api/getusers');
-      let users = await responce.json();
-      console.log(users);
-      context.commit('addUsersToState', users.data);
-    }
+      const response = await fetch('http://localhost/api/users');
+      let users = await response.json();
+      context.commit('addUsersToState', users);
+    },
+    fetchWinners: async (context) => {
+      const response = await fetch('http://localhost/api/winners');
+      let users = await response.json();
+      context.commit('addWinnersToState', users);
+    },
+    fetchUser: async ({commit}, id) => {
+      const response = await fetch('http://localhost/api/user/' + id);
+      let user = await response.json();
+      commit('addUserToState', user)
+    },
+    fetchOwn: async ({commit}, id) => {
+      const response = await fetch('http://localhost:80/api/lots-created-by/' + id);
+      let lots = await response.json();
+      commit('addOwnToState', lots)
+    },
+    fetchWon: async ({commit}, id) => {
+      const response = await fetch('http://localhost:80/api/lots-won-by/' + id);
+      let lots = await response.json();
+      commit('addWonToState', lots)
+    },
   },
 
   mutations: {
     addLotsToState: (state, lots) => {
       state.lots = lots;
     },
+    addLotToState: (state, lot) => {
+      state.lot = lot;
+    },
     addUsersToState: (state, users) => {
       state.users = users;
-    }
+    },
+    addWinnersToState: (state, users) => {
+      state.winners = users;
+    },
+    addUserToState: (state, user) => {
+      state.user = user;
+    },
+    addOwnToState: (state, lots) => {
+      state.own = lots;
+    },
+    addWonToState: (state, lots) => {
+      state.won = lots;
+    },
   },
 });

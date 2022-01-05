@@ -14,7 +14,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/feed',
+      path: '/',
       name: 'feed',
       component: feed
     },
@@ -29,7 +29,7 @@ const router = new VueRouter({
       component: winners
     },
     {
-      path: '/profile',
+      path: '/profile/:id',
       name: 'profile',
       component: profile
     },
