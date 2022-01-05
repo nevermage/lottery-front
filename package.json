@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.7",
+    "axios": "^0.24.0",
     "vue": "^2.5.11",
+    "vue-axios": "^3.4.0",
     "vue-router": "^3.5.3",
     "vuex": "^3.6.2"
   },

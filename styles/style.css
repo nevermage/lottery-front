@@ -373,7 +373,7 @@ main {
 }
 
 .loginFormContainer {
-    display: none;
+    display: block;
     z-index: 5;
     position: fixed;
     left: calc(50% - 175px);

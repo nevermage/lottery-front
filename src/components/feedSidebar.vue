@@ -4,25 +4,22 @@
             <strong>Recent winners</strong>
         </div>
         <li class="winnersList">
-            <winner></winner>
-            <winner></winner>
-            <winner></winner>
-            <winner></winner>
-            <winner></winner>
-            <winner></winner>
-            <winner></winner>
-            <winner></winner>
-            <winner></winner>
+            <ul v-for="winner in winners">
+              {{ winner.name }}
+            </ul>
         </li>
     </aside>
 </template>
 
 <script>
-import winner from './recentWinner';
 export default {
-    name: 'sidebar',
-    components: {
-        winner,
+    mounted() {
+      this.$store.dispatch('fetchWinners', this.$route.params.id);
+    },
+    computed: {
+      winners() {
+        return this.$store.getters.getWinners;
+      },
     }
 }
 
