@@ -142,8 +142,12 @@ aside {
     font-family: Calistoga;
     font-size: 28px;
     padding-left: 20px;
-    line-height: 70px;
+    line-height: 60px;
     -webkit-user-select: none;
+}
+.sidebarHead a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .winnersList {
@@ -191,6 +195,8 @@ main {
     border-radius: 10px;
     margin-bottom: 45px;
     box-shadow: 0 0 10px #ccc;
+    border-radius: 9px;
+    overflow: hidden;
 }
 
 .lotsContainer {
@@ -489,7 +495,7 @@ main {
 
 .profilePageInfo {
     display: grid;
-    grid-template-rows: min-content 58px 1fr 1fr;
+    grid-template-rows: min-content 58px 1fr 1fr min-content;
     font-family: Helvetica;
     color: #303030;
 }
@@ -516,6 +522,19 @@ main {
     line-height: 36px;
 }
 
+.logoutButtonContainer {
+    text-align: right;
+}
+.logoutButton {
+    font-family: Rosario;
+    font-size: 22px;
+    width: 100px;
+    height: 36px;
+    border-radius: 9px;
+    cursor: pointer;
+    border: 1px solid #7b7b7b;
+    background: #c1e0ff;
+}
 
 .winnersPageContainer {
     margin-top: 10px;
