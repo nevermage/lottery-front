@@ -30,17 +30,23 @@
             </router-link>
           </div>
         </div>
+        <div v-show="userInfo.id == user.id" class="logoutButtonContainer">
+          <button class="logoutButton" @click="logout()">Log out</button>
+        </div>
       </div>
     </div>
   </main>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   mounted() {
     this.$store.dispatch('fetchUser', this.$route.params.id);
     this.$store.dispatch('fetchOwn', this.$route.params.id);
     this.$store.dispatch('fetchWon', this.$route.params.id);
+    this.$store.dispatch('fetchUserInfo');
   },
   computed: {
     user() {
@@ -52,6 +58,18 @@ export default {
     won() {
       return this.$store.getters.getWon;
     },
+    userInfo() {
+      return this.$store.getters.getUserInfo;
+    },
+  },
+  methods: {
+    logout() {
+      axios
+        .post("http://localhost/api/logout")
+        .then((data) => {
+          this.$router.push({ name: "feed"})
+        })
+    }
   }
 }
 </script>

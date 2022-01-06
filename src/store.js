@@ -13,6 +13,7 @@ export default new Vuex.Store({
     own: [],
     won: [],
     winners: [],
+    userInfo: []
   },
 
   getters: {
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     getOwn: (state) => state.own,
     getWon: (state) => state.won,
     getWinners: (state) => state.winners,
+    getUserInfo: (state) => state.userInfo,
   },
   actions: {
     fetchLots: async (context) => {
@@ -60,6 +62,14 @@ export default new Vuex.Store({
       let lots = await response.json();
       commit('addWonToState', lots)
     },
+    fetchUserInfo: async ({commit}) => {
+      const response = await fetch('http://localhost:80/api/check-user');
+      let user = await response.json();
+      // if (user.data !== 'UnAuthenticated') {
+        commit('addUserInfo', user.data)
+        // return
+      // }
+    },
   },
 
   mutations: {
@@ -83,6 +93,9 @@ export default new Vuex.Store({
     },
     addWonToState: (state, lots) => {
       state.won = lots;
+    },
+    addUserInfo: (state, user) => {
+      state.userInfo = user;
     },
   },
 });

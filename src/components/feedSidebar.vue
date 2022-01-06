@@ -1,7 +1,9 @@
 <template>
     <aside>
         <div class="sidebarHead">
-            <strong>Recent winners</strong>
+            <strong>
+              <router-link :to="{name: 'winners'}">Recent winners</router-link>
+            </strong>
         </div>
         <li class="winnersList">
             <ul v-for="winner in winners">
