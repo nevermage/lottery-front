@@ -1,6 +1,8 @@
 
 import Vue from "vue";
 import Vuex from "vuex";
+import VueCookies from "vue-cookies";
+
 
 Vue.use(Vuex);
 
@@ -63,12 +65,14 @@ export default new Vuex.Store({
       commit('addWonToState', lots)
     },
     fetchUserInfo: async ({commit}) => {
-      const response = await fetch('http://localhost:80/api/check-user');
+      let token = VueCookies.get('token');
+      if (token == null) {
+        commit('addUserInfo', 'UnAuthenticated');
+        return;
+      }
+      const response = await fetch('http://localhost:80/api/check-user?token=' + token);
       let user = await response.json();
-      // if (user.data !== 'UnAuthenticated') {
-        commit('addUserInfo', user.data)
-        // return
-      // }
+      commit('addUserInfo', user.data)
     },
   },
 

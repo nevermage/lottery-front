@@ -13,7 +13,7 @@
             <strong class="lotPageRoll">Roll timer:</strong>
             <strong class="lotPageTimer">{{ lot.roll_time }}</strong>
           </div>
-          <button class="lotPageJoinButton">Take part</button>
+          <button @click="joinLot()" class="lotPageJoinButton">Take part</button>
         </div>
       </div>
     </div>
@@ -21,6 +21,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import VueCookies from "vue-cookies";
+
 export default {
   mounted() {
     this.$store.dispatch('fetchLot', this.$route.params.id);
@@ -29,6 +32,19 @@ export default {
     lot() {
       return this.$store.getters.getLot;
     },
+  },
+  methods: {
+    joinLot() {
+      let token = VueCookies.get('token');
+      axios
+          .post("http://localhost/api/ljoin/" + this.$route.params.id + '?token=' + token)
+          .then((data) => {
+            alert(data.data.data);
+          })
+          .catch((error) => {
+            alert(error.response.data.data);
+          });
+    }
   }
 }
 </script>

@@ -44,13 +44,16 @@
 </template>
 
 <script>
-
+import VueCookies from 'vue-cookies';
 import axios from 'axios'
+
 export default {
   data: function() {
     return  {
-      loginPassword: [],
-      loginEmail: [],
+      // loginPassword: [],
+      // loginEmail: [],
+      loginPassword: 'secret123',
+      loginEmail: 'Bill.Ham@gmail.com',
 
       name: [],
       email: [],
@@ -91,7 +94,9 @@ export default {
             password: this.loginPassword,
           })
           .then((data) => {
-            console.log(data.data);
+            VueCookies.set('token' , data.data);
+            this.$store.dispatch('fetchUserInfo');
+            closeLoginForm();
           })
           .catch((error) => {
             this.loginPassword = [];
