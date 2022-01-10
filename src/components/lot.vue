@@ -36,6 +36,10 @@ export default {
   methods: {
     joinLot() {
       let token = VueCookies.get('token');
+      if (!token) {
+        alert('Only authorized users can join to lot');
+        return
+      }
       axios
           .post("http://localhost/api/ljoin/" + this.$route.params.id + '?token=' + token)
           .then((data) => {
