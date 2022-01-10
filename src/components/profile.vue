@@ -40,6 +40,7 @@
 
 <script>
 import axios from "axios";
+import VueCookies from "vue-cookies";
 
 export default {
   mounted() {
@@ -64,11 +65,8 @@ export default {
   },
   methods: {
     logout() {
-      axios
-        .post("http://localhost/api/logout")
-        .then((data) => {
-          this.$router.push({ name: "feed"})
-        })
+      VueCookies.remove('token');
+      this.$store.dispatch('fetchUserInfo');
     }
   }
 }
