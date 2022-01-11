@@ -26,13 +26,27 @@ const router = new VueRouter({
     {
       path: '/winners',
       name: 'winners',
-      component: winners
+      component: winners,
     },
     {
       path: '/profile/:id',
       name: 'profile',
       component: profile
     },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: { template: '<h1>admin page</h1>' },
+      beforeEnter: (to, from, next) => {
+        if (store.getters.getUserInfo.role_id == 2) {
+          next()
+        }
+      }
+    },
+    {
+      path: '*',
+      component: { template: '<h1>404</h1>' }
+    }
   ],
 });
 
