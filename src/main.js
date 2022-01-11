@@ -48,6 +48,9 @@ const router = new VueRouter({
       component: { template: '<h1>404</h1>' }
     }
   ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 });
 
 const app = new Vue({
