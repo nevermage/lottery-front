@@ -4,7 +4,9 @@
 
     <xheader></xheader>
 
-    <router-view></router-view>
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
 
     <xfooter></xfooter>
   </div>
@@ -24,3 +26,15 @@ export default {
 }
 </script>
 
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+</style>
