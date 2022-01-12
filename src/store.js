@@ -70,7 +70,8 @@ export default new Vuex.Store({
         commit('addUserInfo', 'UnAuthenticated');
         return;
       }
-      const response = await fetch('http://localhost:80/api/check-user?token=' + token);
+      const headers = { "Authorization": 'Bearer ' + token };
+      const response = await fetch('http://localhost:80/api/check-user', { headers });
       let user = await response.json();
       commit('addUserInfo', user.data)
     },
