@@ -41,7 +41,8 @@ export default {
         return
       }
       axios
-          .post("http://localhost/api/ljoin/" + this.$route.params.id + '?token=' + token)
+          .post("http://localhost/api/join/" + this.$route.params.id, [],
+              { 'headers': { 'Authorization': 'Bearer ' + token } })
           .then((data) => {
             alert(data.data.data);
           })
