@@ -10,6 +10,9 @@ import store from './store'
 
 Vue.use(VueRouter);
 
+import GSignInButton from 'vue-google-signin-button'
+Vue.use(GSignInButton)
+
 const router = new VueRouter({
   mode: 'history',
   routes: [

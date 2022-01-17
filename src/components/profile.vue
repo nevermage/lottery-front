@@ -3,7 +3,7 @@
   <main>
     <div class="profilePageContainer">
       <div class="profilePageImageContainer">
-        <img src="" alt="">
+        <img :src="user.image_path" alt="">
       </div>
       <div class="profilePageInfo">
         <strong class="profilePageName">{{ user.name }}</strong>
@@ -30,7 +30,8 @@
             </router-link>
           </div>
         </div>
-        <div v-show="userInfo.id == user.id" class="logoutButtonContainer">
+        <div v-show="userInfo.id == user.id"
+             class="logoutButtonContainer">
           <button class="logoutButton" @click="logout()">Log out</button>
         </div>
       </div>
