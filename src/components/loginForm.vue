@@ -17,6 +17,13 @@
           <input class="loginFormInput" v-model="loginEmail" type="text" placeholder="username">
           <p class="loginFormInputTitle">password:</p>
           <input class="loginFormInput" v-model="loginPassword" type="password" placeholder="***************">
+          <g-signin-button
+              class="google-button"
+              :params="googleSignInParams"
+              @success="onSignInSuccess"
+              @error="onSignInError">
+            Sign in with Google
+          </g-signin-button>
           <button class="loginFormButton" @click="login()">Log In</button>
         </div>
       </div>
@@ -50,6 +57,9 @@ import axios from 'axios'
 export default {
   data: function() {
     return  {
+      googleSignInParams: {
+        client_id: '127852352293-vrp8o5lucuoo6qe86i52u8okp9gb7ctt.apps.googleusercontent.com'
+      },
       // loginPassword: [],
       // loginEmail: [],
       loginPassword: 'secret123',
@@ -62,6 +72,18 @@ export default {
     }
   },
   methods: {
+    async onSignInSuccess (googleUser) {
+      let googleToken = (googleUser.getAuthResponse()).id_token;
+      const response = await fetch('http://localhost/api/google-login?token=' + googleToken);
+      let token = await response.json();
+
+      VueCookies.set('token' , token);
+      this.$store.dispatch('fetchUserInfo');
+      closeLoginForm();
+    },
+    onSignInError (error) {
+
+    },
     register() {
       axios
           .post("http://localhost/api/register", {
@@ -72,6 +94,7 @@ export default {
           })
           .then((data) => {
             alert(data.data.data);
+            closeLoginForm();
           })
           .catch((error) => {
             if (typeof error.response.data.errors !== 'undefined') {
@@ -110,3 +133,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.google-button {
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+</style>
