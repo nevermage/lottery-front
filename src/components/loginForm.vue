@@ -60,10 +60,8 @@ export default {
       googleSignInParams: {
         client_id: '127852352293-vrp8o5lucuoo6qe86i52u8okp9gb7ctt.apps.googleusercontent.com'
       },
-      // loginPassword: [],
-      // loginEmail: [],
-      loginPassword: 'secret123',
-      loginEmail: 'Bill.Ham@gmail.com',
+      loginPassword: [],
+      loginEmail: [],
 
       name: [],
       email: [],
