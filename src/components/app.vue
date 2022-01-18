@@ -1,8 +1,13 @@
 <template>
   <div>
-    <login></login>
+    <forms
+      v-show="isFormVisible"
+      @close="closeForm"
+    ></forms>
 
-    <xheader></xheader>
+    <xheader
+      @show="showForm"
+    ></xheader>
 
     <transition name="fade" mode="out-in">
       <router-view></router-view>
@@ -15,14 +20,28 @@
 <script>
 import xheader from './header';
 import xfooter from './footer';
-import login from './loginForm';
+import forms from './loginAndRegisterForms';
 
 export default {
   components: {
     xheader,
     xfooter,
-    login,
+    forms,
   },
+  data() {
+    return {
+      isFormVisible: false,
+      formType: 1
+    }
+  },
+  methods: {
+    showForm() {
+      this.isFormVisible = true;
+    },
+    closeForm() {
+      this.isFormVisible = false;
+    },
+  }
 }
 </script>
 
