@@ -11,7 +11,7 @@
           <p class="lotPageAuthorName">Created by: {{ lot.creator }}</p>
           <div class="lotPageRollTimerContainer">
             <strong class="lotPageRoll">Roll timer:</strong>
-            <strong class="lotPageTimer">{{ lot.roll_time }}</strong>
+            <strong class="lotPageTimer">{{ timer }}</strong>
           </div>
           <button @click="joinLot()" class="lotPageJoinButton">Take part</button>
         </div>
@@ -25,13 +25,25 @@ import axios from "axios";
 import VueCookies from "vue-cookies";
 
 export default {
+  created() {
+    this.countDownTimer();
+  },
   mounted() {
     this.$store.dispatch('fetchLot', this.$route.params.id);
   },
   computed: {
     lot() {
-      return this.$store.getters.getLot;
+      let lot = this.$store.getters.getLot;
+      if (lot.roll_time) {
+        this.timer = lot.roll_time;
+      }
+      return lot;
     },
+  },
+  data() {
+    return {
+      timer: 1,
+    }
   },
   methods: {
     joinLot() {
@@ -49,6 +61,14 @@ export default {
           .catch((error) => {
             alert(error.response.data.data);
           });
+    },
+    countDownTimer() {
+      if(this.timer > 0) {
+        setTimeout(() => {
+          this.timer -= 1
+          this.countDownTimer()
+        }, 1000)
+      }
     }
   }
 }
