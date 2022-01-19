@@ -444,6 +444,9 @@ main {
 #loginDataContainer {
     display: block;
 }
+#regDataContainer {
+    display: block;
+}
 
 .loginFormInputTitle {
     font-size: 20px;
