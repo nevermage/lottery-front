@@ -14,6 +14,7 @@
             v-on:leave="leave"
         >
           <li
+              v-if="searchActive"
               v-for="(lot, index) in computedList"
               v-bind:key="lot.name"
               v-bind:data-index="index"
@@ -25,7 +26,7 @@
           </li>
         </transition-group>
       </div>
-      <router-link v-if="user.role_id == 2" :to="{name: 'admin'}" class="headerLoginButton">Admin</router-link>
+      <router-link v-if="user.role_id === 2" :to="{name: 'admin'}" class="headerLoginButton">Admin</router-link>
       <router-link v-if="user.role_id" :to="{name: 'profile', params: {id: user.id}}" class="headerLoginButton">{{ user.name }}</router-link>
       <a v-if="user === 'UnAuthenticated'" class="headerLoginButton" @click="show">Log in</a>
     </div>
