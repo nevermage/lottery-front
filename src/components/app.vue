@@ -1,15 +1,17 @@
 <template>
   <div>
-    <forms
-      v-show="isFormVisible"
-      @close="closeForm"
-    ></forms>
+    <transition name="fade">
+      <forms
+        v-if="isFormVisible"
+        @close="closeForm"
+      ></forms>
+    </transition>
 
     <xheader
       @show="showForm"
     ></xheader>
 
-    <transition name="fade" mode="out-in">
+    <transition name="fade" mode="in-out">
       <router-view></router-view>
     </transition>
 
@@ -46,13 +48,10 @@ export default {
 </script>
 
 <style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.15s ease;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .16s;
 }
-
-.fade-enter-from,
-.fade-leave-to {
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 
