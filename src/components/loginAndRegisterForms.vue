@@ -1,11 +1,11 @@
 <template>
-  <transition name="fade">
   <div>
     <div id="loginFormBackground" class="loginFormBackground" @click="close"></div>
     <div id="loginFormContainer" class="loginFormContainer">
       <button class="closeLoginFormButton" @click="close">
         <svg fill="#232323" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z"/></svg>
       </button>
+      <transition name="fade" mode="out-in">
         <div id="loginDataContainer" v-if="this.formType === 2">
           <div class="loginFormHead">
             <div class="loginFormHeadGrid">
@@ -28,28 +28,28 @@
             <button class="loginFormButton" @click="login()">Log In</button>
           </div>
         </div>
-      <div id="regDataContainer" v-if="this.formType === 1">
-        <div class="loginFormHead">
-          <div class="loginFormHeadGrid">
-            <strong class="loginFormLabel">Sign Up</strong>
-            <a class="loginFormHeadSwitcher" @click="switchForms">Log In</a>
+        <div id="regDataContainer" v-if="this.formType === 1">
+          <div class="loginFormHead">
+            <div class="loginFormHeadGrid">
+              <strong class="loginFormLabel">Sign Up</strong>
+              <a class="loginFormHeadSwitcher" @click="switchForms">Log In</a>
+            </div>
+          </div>
+          <div class="loginForm">
+            <p class="loginFormInputTitle">username:</p>
+            <input class="loginFormInput" v-model="name" type="text" placeholder="username">
+            <p class="loginFormInputTitle">email:</p>
+            <input class="loginFormInput" v-model="email" type="text" placeholder="exmaple@gmail.com">
+            <p class="loginFormInputTitle">password:</p>
+            <input class="loginFormInput" v-model="password" type="password" placeholder="***************">
+            <p class="loginFormInputTitle">password confirmation:</p>
+            <input class="loginFormInput" v-model="passwordConfirm" type="password" placeholder="***************">
+            <button class="loginFormButton" @click="register()">Sign Up</button>
           </div>
         </div>
-        <div class="loginForm">
-          <p class="loginFormInputTitle">username:</p>
-          <input class="loginFormInput" v-model="name" type="text" placeholder="username">
-          <p class="loginFormInputTitle">email:</p>
-          <input class="loginFormInput" v-model="email" type="text" placeholder="exmaple@gmail.com">
-          <p class="loginFormInputTitle">password:</p>
-          <input class="loginFormInput" v-model="password" type="password" placeholder="***************">
-          <p class="loginFormInputTitle">password confirmation:</p>
-          <input class="loginFormInput" v-model="passwordConfirm" type="password" placeholder="***************">
-          <button class="loginFormButton" @click="register()">Sign Up</button>
-        </div>
-      </div>
+      </transition>
     </div>
   </div>
-  </transition>
 </template>
 
 <script>
@@ -166,14 +166,13 @@ export default {
   cursor: pointer;
   margin-bottom: 6px;
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.15s ease;
-}
 
-.fade-enter-from,
-.fade-leave-to {
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .16s;
+}
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
+
 
 </style>
