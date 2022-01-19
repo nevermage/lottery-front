@@ -14,10 +14,15 @@
             v-on:leave="leave"
         >
           <li
-              v-for="(item, index) in computedList"
-              v-bind:key="item.name"
+              v-for="(lot, index) in computedList"
+              v-bind:key="lot.name"
               v-bind:data-index="index"
-          >{{ item.name }}</li>
+          >
+            <router-link
+                class="searchLink"
+                :to="{name: 'lot', params: {id: lot.id}}"
+            >{{ lot.name }}</router-link>
+          </li>
         </transition-group>
       </div>
       <router-link v-if="user.role_id == 2" :to="{name: 'admin'}" class="headerLoginButton">Admin</router-link>
@@ -48,7 +53,7 @@ export default {
     computedList: function () {
       var vm = this;
       return this.lots.filter(function (lot) {
-        if (vm.searchActive) {
+        if (vm.query !== '') {
           return lot.name.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
         }
       })
@@ -102,8 +107,9 @@ export default {
   display: inline-block;
   z-index: 100;
 }
-li {
-  z-index: 4;
+
+.searcher a {
+  color: #494949;
 }
 
 </style>
