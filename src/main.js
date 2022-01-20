@@ -44,6 +44,7 @@ const router = new VueRouter({
         if (store.getters.getUserInfo.role_id == 2) {
           next()
         }
+        router.push({ name: 'feed' })
       }
     },
     {
