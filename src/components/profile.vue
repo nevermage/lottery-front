@@ -1,5 +1,4 @@
 <template>
-  
   <main>
     <div class="profilePageContainer">
       <div class="profilePageImageContainer">
@@ -30,8 +29,10 @@
             </router-link>
           </div>
         </div>
-        <div v-show="userInfo.id == user.id"
-             class="logoutButtonContainer">
+        <div
+            v-show="userInfo.id == user.id"
+             class="logoutButtonContainer"
+        >
           <button class="logoutButton" @click="logout()">Log out</button>
         </div>
       </div>

@@ -1,5 +1,4 @@
 <template>
-  
     <main>
         <div class="feedBanner">
             <img src="/src/images/banner1.png" alt="">
@@ -12,8 +11,7 @@
                 <lot v-for="lot in lots"
                      :key="lot.id"
                      :lot="lot"
-                ></lot>
-
+                />
             </li>
         </div>
     </main>
