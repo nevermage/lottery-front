@@ -54,7 +54,7 @@ export default {
       }
       axios
           .post("http://localhost/api/join/" + this.$route.params.id, [],
-              { 'headers': { 'Authorization': 'Bearer ' + token } })
+              {'headers': {'Authorization': 'Bearer ' + token}})
           .then((data) => {
             alert(data.data.data);
           })
@@ -63,7 +63,7 @@ export default {
           });
     },
     countDownTimer() {
-      if(this.timer > 0) {
+      if (this.timer > 0) {
         setTimeout(() => {
           this.timer -= 1
           this.countDownTimer()

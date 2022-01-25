@@ -1,34 +1,32 @@
 <template>
   <div>
     <transition name="fade">
-      <forms
+      <authorization-form
         v-if="isFormVisible"
         @close="closeForm"
-      ></forms>
+      />
     </transition>
 
-    <xheader
-      @show="showForm"
-    ></xheader>
+    <my-header @show="showForm"/>
 
     <transition name="fade" mode="in-out">
       <router-view></router-view>
     </transition>
 
-    <xfooter></xfooter>
+    <my-footer/>
   </div>
 </template>
 
 <script>
-import xheader from './header';
-import xfooter from './footer';
-import forms from './loginAndRegisterForms';
+import AuthorizationForm from "./authorizationForm";
+import MyFooter from "./myFooter";
+import MyHeader from "./myHeader";
 
 export default {
   components: {
-    xheader,
-    xfooter,
-    forms,
+    MyHeader,
+    MyFooter,
+    AuthorizationForm,
   },
   data() {
     return {

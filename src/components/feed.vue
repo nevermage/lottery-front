@@ -1,5 +1,4 @@
 <template>
-  
     <div>
         <sidebar></sidebar>
         <feed-main></feed-main>
