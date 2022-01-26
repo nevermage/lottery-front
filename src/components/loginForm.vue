@@ -7,12 +7,13 @@
       </div>
     </div>
     <div class="loginForm">
-      <p class="loginFormInputTitle">username:</p>
+      <p class="loginFormInputTitle">email:</p>
       <input class="loginFormInput" v-model="email" type="text" placeholder="username">
       <p class="loginFormInputTitle">password:</p>
       <input class="loginFormInput" v-model="password" type="password" placeholder="***************">
 
       <google-sign-up @close="close"/>
+      <facebook-sing-up @close="close"/>
 
       <button class="loginFormButton" @click="login()">Log In</button>
     </div>
@@ -23,9 +24,11 @@
 import VueCookies from 'vue-cookies';
 import axios from 'axios'
 import googleSignUp from "@/components/googleSignUp";
+import FacebookSingUp from "@/components/facebookSingUp";
 
 export default {
   components: {
+    FacebookSingUp,
     googleSignUp
   },
   data: function() {
