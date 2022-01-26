@@ -2,25 +2,27 @@
   <div>
     <transition name="fade">
       <authorization-form
-        v-if="isFormVisible"
-        @close="closeForm"
+          v-if="isFormVisible"
+          @close="closeForm"
       />
     </transition>
 
     <my-header @show="showForm"/>
 
-    <transition name="fade" mode="in-out">
-      <router-view></router-view>
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="in-out">
+        <component :is="Component"/>
+      </transition>
+    </router-view>
 
     <my-footer/>
   </div>
 </template>
 
 <script>
-import AuthorizationForm from "./authorizationForm";
-import MyFooter from "./myFooter";
-import MyHeader from "./myHeader";
+import AuthorizationForm from "./components/authorizationForm";
+import MyFooter from "./components/myFooter";
+import MyHeader from "./components/myHeader";
 
 export default {
   components: {
@@ -47,7 +49,7 @@ export default {
 
 <style>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .16s;
+  transition: opacity .12s;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;

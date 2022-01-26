@@ -11,7 +11,9 @@
       <input class="loginFormInput" v-model="email" type="text" placeholder="username">
       <p class="loginFormInputTitle">password:</p>
       <input class="loginFormInput" v-model="password" type="password" placeholder="***************">
-      <google-sing-up @close="close"/>
+
+      <google-sign-up @close="close"/>
+
       <button class="loginFormButton" @click="login()">Log In</button>
     </div>
   </div>
@@ -20,14 +22,16 @@
 <script>
 import VueCookies from 'vue-cookies';
 import axios from 'axios'
-import GoogleSingUp from "./googleSingUp";
+import googleSignUp from "@/components/googleSignUp";
 
 export default {
-  components: {GoogleSingUp},
+  components: {
+    googleSignUp
+  },
   data: function() {
     return  {
       password: '',
-      email: '',
+      email: ''
     }
   },
   methods: {

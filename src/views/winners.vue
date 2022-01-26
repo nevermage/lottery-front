@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import WinRaw from "./winRaw";
+import WinRaw from "../components/winRaw";
 export default {
   components: {WinRaw},
   mounted() {

@@ -25,6 +25,11 @@ import axios from "axios";
 import VueCookies from "vue-cookies";
 
 export default {
+  data() {
+    return {
+      timer: 111
+    }
+  },
   created() {
     this.countDownTimer();
   },
@@ -33,19 +38,13 @@ export default {
   },
   computed: {
     lot() {
-      let lot = this.$store.getters.getLot;
-      if (lot.roll_time) {
-        this.timer = lot.roll_time;
-      }
-      return lot;
+      return this.$store.getters.getLot;
     },
   },
-  data() {
-    return {
-      timer: 1,
-    }
-  },
   methods: {
+    setTimer(time) {
+      this.timer = time;
+    },
     joinLot() {
       let token = VueCookies.get('token');
       if (!token) {

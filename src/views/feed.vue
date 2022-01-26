@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import feedMain from './feedMain';
-import sidebar from './feedSidebar';
+import feedMain from '../components/feedMain';
+import sidebar from '../components/feedSidebar';
 export default {
     components: {
         feedMain,
