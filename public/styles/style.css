@@ -489,6 +489,10 @@ main {
     background: #c1e0ff;
 }
 
+.profilePageImageContainer img {
+    height: 100%;
+}
+
 .profilePageInfo {
     display: grid;
     grid-template-rows: min-content 58px 1fr 1fr min-content;

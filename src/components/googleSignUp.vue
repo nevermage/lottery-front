@@ -20,9 +20,10 @@ export default {
         if (!googleUser) {
           return null;
         }
-        let authResponse = (googleUser.getAuthResponse());
 
-        const response = await fetch('http://localhost/api/google-login?token=' + authResponse.id_token);
+        let googleToken = (googleUser.getAuthResponse()).id_token;
+
+        const response = await fetch('http://localhost/api/google-login?token=' + googleToken);
         let token = await response.json();
 
         VueCookies.set('token', token);
