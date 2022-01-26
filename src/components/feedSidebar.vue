@@ -6,7 +6,10 @@
             </strong>
         </div>
         <li class="winnersList">
-            <ul v-for="winner in winners">
+            <ul
+                v-for="(winner, index) in winners"
+                :key = index
+            >
               {{ winner.name }}
             </ul>
         </li>

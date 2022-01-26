@@ -1,16 +1,12 @@
-import Vue from 'vue'
-import App from './components/app'
-import store from './store'
-import GSignInButton from 'vue-google-signin-button'
-import router from "./router";
+import {createApp} from 'vue'
+import App from './App'
+import router from "@/router/router";
+import store from '@/store/store'
+import GAuth from 'vue3-google-oauth2'
+import gAuthOptions from '@/components/gAuthOptions'
 
-Vue.use(GSignInButton)
-
-const app = new Vue({
-  el: "#app",
-  router,
-  store,
-  render: (h) => h(App)
-
-});
-
+createApp(App)
+    .use(GAuth, gAuthOptions)
+    .use(router)
+    .use(store)
+    .mount('#app')

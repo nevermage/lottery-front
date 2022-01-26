@@ -12,23 +12,26 @@
         v-on:enter="enter"
         v-on:leave="leave"
     >
-      <li
-          v-if="searchActive"
-          v-for="(lot, index) in computedList"
-          v-bind:key="lot.name"
-          v-bind:data-index="index"
-      >
-        <router-link
-            class="searchLink"
-            :to="{name: 'lot', params: {id: lot.id}}"
-        >{{ lot.name }}
-        </router-link>
-      </li>
+      <div v-if="searchActive">
+        <li
+            v-for="(lot, index) in computedList"
+            v-bind:key="lot.name"
+            v-bind:data-index="index"
+        >
+          <router-link
+              class="searchLink"
+              :to="{name: 'lot', params: {id: lot.id}}"
+          >{{ lot.name }}
+          </router-link>
+        </li>
+      </div>
+
     </transition-group>
   </div>
 </template>
 
 <script>
+import Velocity from 'velocity-animate';
 export default {
   data() {
     return {

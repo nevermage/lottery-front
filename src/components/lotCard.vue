@@ -18,7 +18,9 @@ export default {
   props: {
     lot: {
       type: Object,
-      default: {}
+      default() {
+        return {}
+      }
     }
   }
 }

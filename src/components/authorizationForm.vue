@@ -27,7 +27,7 @@ export default {
   components: {RegForm, LoginForm},
   data: function() {
     return  {
-      formType: 1
+      formType: 2
     }
   },
   methods: {
