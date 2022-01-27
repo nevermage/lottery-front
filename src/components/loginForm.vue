@@ -8,14 +8,15 @@
     </div>
     <div class="loginForm">
       <p class="loginFormInputTitle">email:</p>
-      <input class="loginFormInput" v-model="email" type="text" placeholder="username">
+      <login-input v-model="email" placeholder="email"/>
       <p class="loginFormInputTitle">password:</p>
-      <input class="loginFormInput" v-model="password" type="password" placeholder="***************">
+      <login-input v-model="password" placeholder="***********" type="password"/>
 
       <google-sign-up @close="close"/>
-      <facebook-sing-up @close="close"/>
+      <facebook-sign-up @close="close"/>
+      <a @click="this.$emit('forgotPassword')">Forgot password?</a>
 
-      <button class="loginFormButton" @click="login()">Log In</button>
+      <send-form-button @click="login">Log In</send-form-button>
     </div>
   </div>
 </template>
@@ -23,18 +24,12 @@
 <script>
 import VueCookies from 'vue-cookies';
 import axios from 'axios'
-import googleSignUp from "@/components/googleSignUp";
-import FacebookSingUp from "@/components/facebookSingUp";
 
 export default {
-  components: {
-    FacebookSingUp,
-    googleSignUp
-  },
   data: function() {
     return  {
       password: '',
-      email: ''
+      email: '',
     }
   },
   methods: {
@@ -45,8 +40,11 @@ export default {
       this.$emit('close');
     },
     clearLoginData() {
-      this.password = [];
-      this.email = [];
+      this.password = '';
+      this.email = '';
+    },
+    async forgotPassword() {
+      this.$emit('forgot');
     },
     login() {
       axios
@@ -71,3 +69,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.loginForm a {
+  text-decoration: underline;
+}
+</style>
