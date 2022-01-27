@@ -1,6 +1,6 @@
 <template>
 
-    <button class="fb-button" @click="logInWithFacebook"> Login with Facebook</button>
+    <button class="fb-button" @click="zxc"> Login with Facebook</button>
 
 </template>
 
@@ -9,6 +9,18 @@ import VueCookies from "vue-cookies";
 
 export default {
   methods: {
+    zxc() {
+      try {
+        this.logInWithFacebook();
+      } catch (e) {
+        let a;
+      }
+
+      setTimeout(() => {
+        this.logInWithFacebook();
+      }, 100);
+
+    },
     async logInWithFacebook() {
       await this.loadFacebookSDK(document, "script", "facebook-jssdk");
       await this.initFacebook();
