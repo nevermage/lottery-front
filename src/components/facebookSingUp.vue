@@ -10,11 +10,7 @@ import VueCookies from "vue-cookies";
 export default {
   methods: {
     zxc() {
-      try {
-        this.logInWithFacebook();
-      } catch (e) {
-        let a;
-      }
+      this.logInWithFacebook();
 
       setTimeout(() => {
         this.logInWithFacebook();
