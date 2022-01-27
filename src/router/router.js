@@ -5,6 +5,7 @@ import winners from "@/views/winners";
 import profile from "@/views/profile";
 import store from "@/store/store";
 import admin from '@/views/admin'
+import passwordReset from "@/views/passwordReset";
 
 const routes = [
   {
@@ -38,6 +39,11 @@ const routes = [
       }
       router.push({ name: 'feed' })
     }
+  },
+  {
+    path: '/password-reset/:token',
+    component: passwordReset,
+    meta: { hideLayout: false }
   },
   {
     path: '/:catchAll(.*)',

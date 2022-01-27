@@ -1,6 +1,6 @@
 <template>
 
-    <button class="fb-button" @click="zxc"> Login with Facebook</button>
+    <button class="fb-button" @click="signup"> Login with Facebook</button>
 
 </template>
 
@@ -8,8 +8,9 @@
 import VueCookies from "vue-cookies";
 
 export default {
+  name: 'facebook-sign-up',
   methods: {
-    zxc() {
+    signup() {
       this.logInWithFacebook();
 
       setTimeout(() => {

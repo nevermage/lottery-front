@@ -13,6 +13,7 @@
 import VueCookies from "vue-cookies";
 
 export default {
+  name: 'google-sign-up',
   methods: {
     async handleClickSignIn() {
       try {

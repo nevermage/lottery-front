@@ -1,13 +1,10 @@
 <template>
   <div>
     <transition name="fade">
-      <authorization-form
-          v-if="isFormVisible"
-          @close="closeForm"
-      />
+      <authorization-form v-if="isFormVisible" @close="closeForm"/>
     </transition>
 
-    <my-header @show="showForm"/>
+    <my-header v-if="$route.meta.hideLayout == null" @show="showForm"/>
 
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="in-out">
@@ -15,7 +12,7 @@
       </transition>
     </router-view>
 
-    <my-footer/>
+    <my-footer v-if="$route.meta.hideLayout == null"/>
   </div>
 </template>
 
@@ -42,16 +39,16 @@ export default {
     },
     closeForm() {
       this.isFormVisible = false;
-    },
+    }
   }
 }
 </script>
 
 <style>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .12s;
+  transition: opacity .19s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter-from, .fade-leave-to {
   opacity: 0;
 }
 

@@ -8,14 +8,14 @@
     </div>
     <div class="loginForm">
       <p class="loginFormInputTitle">username:</p>
-      <input class="loginFormInput" v-model="name" type="text" placeholder="username">
+      <login-input v-model="name" placeholder="username"/>
       <p class="loginFormInputTitle">email:</p>
-      <input class="loginFormInput" v-model="email" type="text" placeholder="exmaple@gmail.com">
+      <login-input v-model="email" placeholder="exmaple@gmail.com"/>
       <p class="loginFormInputTitle">password:</p>
-      <input class="loginFormInput" v-model="password" type="password" placeholder="***************">
+      <login-input v-model="password" type="password" placeholder="***************"/>
       <p class="loginFormInputTitle">password confirmation:</p>
-      <input class="loginFormInput" v-model="passwordConfirm" type="password" placeholder="***************">
-      <button class="loginFormButton" @click="register()">Sign Up</button>
+      <login-input v-model="passwordConfirm" type="password" placeholder="***************"/>
+      <send-form-button @click="register">Sign Up</send-form-button>
     </div>
   </div>
 </template>
@@ -50,12 +50,6 @@ export default {
             this.clearRegisterData();
           })
           .catch((error) => {
-            if (typeof error.response.data.errors !== 'undefined') {
-              if (typeof error.response.data.errors.password !== 'undefined') {
-                this.password = '';
-                this.passwordConfirm = '';
-              }
-            }
             alert(
                 error.response.data.message
                     ? Object.values(error.response.data.errors)[0][0]
@@ -64,10 +58,10 @@ export default {
           });
     },
     clearRegisterData () {
-      this.name = [];
-      this.email = [];
-      this.password = [];
-      this.passwordConfirm = [];
+      this.name = '';
+      this.email = '';
+      this.password = '';
+      this.passwordConfirm = '';
     },
   }
 }
