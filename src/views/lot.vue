@@ -59,21 +59,20 @@ export default {
     setTimer(time) {
       this.timer = time;
     },
-    joinLot() {
+    async joinLot() {
       let token = VueCookies.get('token');
       if (!token) {
         alert('Only authorized users can join to lot');
         return
       }
-      axios
-          .post(process.env.VUE_APP_BACKEND_URL + '/api/join/' + this.$route.params.id, [],
-              {'headers': {'Authorization': 'Bearer ' + token}})
-          .then((data) => {
-            alert(data.data.data);
-          })
-          .catch((error) => {
-            alert(error.response.data.data);
-          });
+      try {
+        let response = await axios
+            .post(process.env.VUE_APP_BACKEND_URL + '/api/join/' + this.$route.params.id, [],
+                {'headers': {'Authorization': 'Bearer ' + token}})
+        alert(response.data.data);
+      } catch (error) {
+        alert(error.response.data.data);
+      }
     },
     countDownTimer() {
       if (this.timer > 0) {
