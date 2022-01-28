@@ -3,19 +3,46 @@
     <div class="loginFormHead">
       <div class="loginFormHeadGrid">
         <strong class="loginFormLabel">Sign Up</strong>
-        <a class="loginFormHeadSwitcher" @click="switchForms">Log In</a>
+        <a
+          class="loginFormHeadSwitcher"
+          @click="switchForms"
+        >Log In</a>
       </div>
     </div>
     <div class="loginForm">
-      <p class="loginFormInputTitle">username:</p>
-      <login-input v-model="name" placeholder="username"/>
-      <p class="loginFormInputTitle">email:</p>
-      <login-input v-model="email" placeholder="exmaple@gmail.com"/>
-      <p class="loginFormInputTitle">password:</p>
-      <login-input v-model="password" type="password" placeholder="***************"/>
-      <p class="loginFormInputTitle">password confirmation:</p>
-      <login-input v-model="passwordConfirm" type="password" placeholder="***************"/>
-      <send-form-button @click="register">Sign Up</send-form-button>
+      <p class="loginFormInputTitle">
+        username:
+      </p>
+      <login-input
+        v-model="name"
+        placeholder="username"
+      />
+      <p class="loginFormInputTitle">
+        email:
+      </p>
+      <login-input
+        v-model="email"
+        placeholder="exmaple@gmail.com"
+      />
+      <p class="loginFormInputTitle">
+        password:
+      </p>
+      <login-input
+        v-model="password"
+        type="password"
+        placeholder="***************"
+      />
+      <p class="loginFormInputTitle">
+        password confirmation:
+      </p>
+      <login-input
+        v-model="passwordConfirm"
+        type="password"
+        placeholder="***************"
+      />
+      <send-form-button @click="register">
+        Sign Up
+      </send-form-button>
     </div>
   </div>
 </template>
@@ -24,6 +51,7 @@
 import axios from 'axios'
 
 export default {
+  emits: ['close', 'switch'],
   data: function() {
     return {
       name: '',

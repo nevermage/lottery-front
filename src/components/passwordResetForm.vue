@@ -1,15 +1,18 @@
 <template>
   <div class="resetForm">
     <h1>Enter your email</h1>
-    <a @click="this.$emit('back')">go back</a>
+    <a @click="$emit('back')">go back</a>
     <login-input v-model="email" />
-    <send-form-button @click="sendMail">Send</send-form-button>
+    <send-form-button @click="sendMail">
+      Send
+    </send-form-button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'password-reset-form',
+  name: 'PasswordResetForm',
+  emits: ['back', 'close'],
   data() {
     return {
       email: ''

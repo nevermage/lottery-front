@@ -1,12 +1,17 @@
 <template>
   <div>
-    <form class="passwordResetForm" @submit.prevent>
+    <form
+      class="passwordResetForm"
+      @submit.prevent
+    >
       <h1>Set new password</h1>
       <h3>New password:</h3>
-      <login-input v-model="password"/>
+      <login-input v-model="password" />
       <h3>Repeat new password:</h3>
-      <login-input v-model="passwordConfirmation"/>
-      <send-form-button @click="send">Confirm</send-form-button>
+      <login-input v-model="passwordConfirmation" />
+      <send-form-button @click="send">
+        Confirm
+      </send-form-button>
     </form>
   </div>
 </template>
@@ -15,7 +20,7 @@
 import axios from "axios";
 
 export default {
-  name: 'password-reset',
+  name: 'PasswordReset',
   data() {
     return {
       password: '',

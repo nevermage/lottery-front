@@ -1,7 +1,7 @@
 <template>
   <div>
-    <sidebar></sidebar>
-    <feed-main></feed-main>
+    <sidebar />
+    <feed-main />
   </div>
 </template>
 

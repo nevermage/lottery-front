@@ -1,8 +1,8 @@
 <template>
   <div>
     <button
-        class="google-button"
-        @click="handleClickSignIn"
+      class="google-button"
+      @click="handleClickSignIn"
     >
       Sign in with google
     </button>
@@ -14,8 +14,9 @@ import VueCookies from "vue-cookies";
 import mixin from "@/mixin/mixin";
 
 export default {
-  name: 'google-sign-up',
+  name: 'GoogleSignUp',
   mixins: [mixin],
+  emits: ['close'],
   methods: {
     async handleClickSignIn() {
       try {

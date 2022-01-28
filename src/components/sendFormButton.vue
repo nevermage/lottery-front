@@ -1,11 +1,11 @@
 <template>
   <button class="loginFormButton">
-    <slot></slot>
+    <slot />
   </button>
 </template>
 
 <script>
 export default {
-  name: 'send-form-button'
+  name: 'SendFormButton'
 }
 </script>

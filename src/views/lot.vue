@@ -1,19 +1,33 @@
 <template>
   <main>
     <div class="lotPageContainer">
-      <h1 class="lotPageTitle">{{ lot.name }}</h1>
+      <h1 class="lotPageTitle">
+        {{ lot.name }}
+      </h1>
       <div class="lotPageGrid">
         <div class="lotPageImage">
-          <img v-bind:src="lot.image_path" alt="">
+          <img
+            :src="lot.image_path"
+            alt=""
+          >
         </div>
         <div class="lotPageInfo">
-          <p class="lotPageDescription">{{ lot.description }}</p>
-          <p class="lotPageAuthorName">Created by: {{ lot.creator }}</p>
+          <p class="lotPageDescription">
+            {{ lot.description }}
+          </p>
+          <p class="lotPageAuthorName">
+            Created by: {{ lot.creator }}
+          </p>
           <div class="lotPageRollTimerContainer">
             <strong class="lotPageRoll">Roll timer:</strong>
             <strong class="lotPageTimer">{{ timer }}</strong>
           </div>
-          <button @click="joinLot()" class="lotPageJoinButton">Take part</button>
+          <button
+            class="lotPageJoinButton"
+            @click="joinLot()"
+          >
+            Take part
+          </button>
         </div>
       </div>
     </div>
@@ -30,16 +44,16 @@ export default {
       timer: 111
     }
   },
+  computed: {
+    lot() {
+      return this.$store.getters.getLot;
+    },
+  },
   created() {
     this.countDownTimer();
   },
   mounted() {
     this.$store.dispatch('fetchLot', this.$route.params.id);
-  },
-  computed: {
-    lot() {
-      return this.$store.getters.getLot;
-    },
   },
   methods: {
     setTimer(time) {

@@ -10,9 +10,9 @@
           <th>Lottery</th>
         </tr>
         <win-raw
-            v-for="(data, index) in winners"
-            :key="index"
-            :data="data"
+          v-for="(data, index) in winners"
+          :key="index"
+          :data="data"
         />
       </table>
     </div>
@@ -24,13 +24,13 @@ import WinRaw from "../components/winRaw";
 
 export default {
   components: {WinRaw},
-  mounted() {
-    this.$store.dispatch('fetchWinners', this.$route.params.id);
-  },
   computed: {
     winners() {
       return this.$store.getters.getWinners;
     },
+  },
+  mounted() {
+    this.$store.dispatch('fetchWinners', this.$route.params.id);
   }
 }
 </script>
