@@ -35,9 +35,9 @@ export default {
     async initFacebook() {
       window.fbAsyncInit = function () {
         window.FB.init({
-          appId: "329447389087542",
-          cookie: true,
-          version: "v14.0"
+          appId: process.env.VUE_APP_FACEBOOK_CLIENT_ID,
+          cookie: process.env.VUE_APP_FACEBOOK_CLIENT_COOKIE,
+          version: process.env.VUE_APP_FACEBOOK_CLIENT_VERSION
         });
       };
     },

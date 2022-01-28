@@ -1,8 +1,8 @@
 <script>
 export default {
-    clientId: '127852352293-vrp8o5lucuoo6qe86i52u8okp9gb7ctt.apps.googleusercontent.com',
-    scope: 'email',
-    prompt: 'consent',
-    fetch_basic_profile: true
+    clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
+    scope: process.env.VUE_APP_GOOGLE_CLIENT_scope,
+    prompt: process.env.VUE_APP_GOOGLE_CLIENT_prompt,
+    fetch_basic_profile: process.env.VUE_APP_GOOGLE_CLIENT_fetch,
 }
 </script>
