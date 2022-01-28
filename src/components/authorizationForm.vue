@@ -3,7 +3,7 @@
     <div
       id="loginFormBackground"
       class="loginFormBackground"
-      @click="close"
+      @click="$emit('close')"
     />
     <div
       id="loginFormContainer"
@@ -11,7 +11,7 @@
     >
       <button
         class="closeLoginFormButton"
-        @click="close"
+        @click="$emit('close')"
       >
         <svg
           fill="#232323"
@@ -28,18 +28,18 @@
       <password-reset-form
         v-if="formType === 3"
         @back="formType = 2"
-        @close="close"
+        @close="$emit('close')"
       />
       <login-form
         v-if="formType === 2"
         @forgotPassword="formType = 3"
         @switch="switchForms"
-        @close="$emit('close');"
+        @close="$emit('close')"
       />
       <register-form
         v-if="formType === 1"
         @switch="switchForms"
-        @close="close"
+        @close="$emit('close')"
       />
     </div>
   </div>

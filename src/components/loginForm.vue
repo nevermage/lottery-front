@@ -43,8 +43,8 @@ import axios from 'axios'
 
 export default {
   emits: ['forgotPassword', 'switch', 'close', 'forgot'],
-  data: function() {
-    return  {
+  data: function () {
+    return {
       password: '',
       email: '',
     }
@@ -63,25 +63,25 @@ export default {
     async forgotPassword() {
       this.$emit('forgot');
     },
-    login() {
-      axios
-        .post(process.env.VUE_APP_BACKEND_URL + '/api/login', {
-          email: this.email,
-          password: this.password,
-        })
-        .then((data) => {
-          VueCookies.set('token', data.data);
-          this.$store.dispatch('fetchUserInfo');
-          this.close();
-          this.clearLoginData();
-        })
-        .catch((error) => {
-          alert(
-              error.response.data.message
-                  ? Object.values(error.response.data.errors)[0][0]
-                  : error.response.data.data
-          );
-        });
+    async login() {
+      try {
+        const response = await axios
+            .post(process.env.VUE_APP_BACKEND_URL + '/api/login', {
+              email: this.email,
+              password: this.password,
+            });
+
+        VueCookies.set('token', response.data);
+        this.$store.dispatch('fetchUserInfo');
+        this.close();
+        this.clearLoginData();
+      } catch (error) {
+        alert(
+            error.response.data.message
+                ? Object.values(error.response.data.errors)[0][0]
+                : error.response.data.data
+        );
+      }
     }
   }
 }

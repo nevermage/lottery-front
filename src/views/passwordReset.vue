@@ -6,9 +6,15 @@
     >
       <h1>Set new password</h1>
       <h3>New password:</h3>
-      <login-input v-model="password" />
+      <login-input
+        v-model="password"
+        type="password"
+      />
       <h3>Repeat new password:</h3>
-      <login-input v-model="passwordConfirmation" />
+      <login-input
+        v-model="passwordConfirmation"
+        type="password"
+      />
       <send-form-button @click="send">
         Confirm
       </send-form-button>
@@ -34,15 +40,14 @@ export default {
           token: this.$route.params.token,
           password: this.password
         };
-        axios
-            .post(process.env.VUE_APP_BACKEND_URL + '/api/password-reset', params)
-            .then((data) => {
-              alert(data.data.data);
+        try {
+          let response = await axios
+              .post(process.env.VUE_APP_BACKEND_URL + '/api/password-reset', params)
+              alert(response.data.data);
               this.$router.push({ name: 'feed'});
-            })
-            .catch((error) => {
+        } catch (error) {
               alert(error.response.data.error);
-            });
+        };
       }
     },
     validation() {

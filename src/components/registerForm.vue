@@ -52,7 +52,7 @@ import axios from 'axios'
 
 export default {
   emits: ['close', 'switch'],
-  data: function() {
+  data: function () {
     return {
       name: '',
       email: '',
@@ -64,33 +64,32 @@ export default {
     switchForms() {
       this.$emit('switch');
     },
-    register() {
-      axios
-          .post(process.env.VUE_APP_BACKEND_URL + '/api/register', {
-            email: this.email,
-            name: this.name,
-            password: this.password,
-            password_confirmation: this.passwordConfirm,
-          })
-          .then((data) => {
-            alert(data.data.data);
-            this.$emit('close');
-            this.clearRegisterData();
-          })
-          .catch((error) => {
-            alert(
-                error.response.data.message
-                    ? Object.values(error.response.data.errors)[0][0]
-                    : error.response.data.data
-            );
-          });
+    async register() {
+      try {
+        let response = await axios
+            .post(process.env.VUE_APP_BACKEND_URL + '/api/register', {
+              email: this.email,
+              name: this.name,
+              password: this.password,
+              password_confirmation: this.passwordConfirm,
+            })
+        alert(response.data.data);
+        this.$emit('close');
+        this.clearRegisterData();
+      } catch (error) {
+        alert(
+            error.response.data.message
+                ? Object.values(error.response.data.errors)[0][0]
+                : error.response.data.data
+        );
+      }
     },
-    clearRegisterData () {
+    clearRegisterData() {
       this.name = '';
       this.email = '';
       this.password = '';
       this.passwordConfirm = '';
-    },
+    }
   }
 }
 
