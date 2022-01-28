@@ -25,37 +25,37 @@ export default createStore({
   },
   actions: {
     fetchLots: async (context) => {
-      const response = await fetch('http://localhost/api/lots');
+      const response = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/lots');
       let lots = await response.json();
       context.commit('addLotsToState', lots);
     },
     fetchLot: async ({commit}, id) => {
-      const response = await fetch('http://localhost/api/lot/' + id);
+      const response = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/lot/' + id);
       let lot = await response.json();
       commit('addLotToState', lot[0])
     },
     fetchUsers: async (context) => {
-      const response = await fetch('http://localhost/api/users');
+      const response = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/users');
       let users = await response.json();
       context.commit('addUsersToState', users);
     },
     fetchWinners: async (context) => {
-      const response = await fetch('http://localhost/api/winners');
+      const response = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/winners');
       let users = await response.json();
       context.commit('addWinnersToState', users);
     },
     fetchUser: async ({commit}, id) => {
-      const response = await fetch('http://localhost/api/user/' + id);
+      const response = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/user/' + id);
       let user = await response.json();
       commit('addUserToState', user)
     },
     fetchOwn: async ({commit}, id) => {
-      const response = await fetch('http://localhost:80/api/lots-created-by/' + id);
+      const response = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/lots-created-by/' + id);
       let lots = await response.json();
       commit('addOwnToState', lots)
     },
     fetchWon: async ({commit}, id) => {
-      const response = await fetch('http://localhost:80/api/lots-won-by/' + id);
+      const response = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/lots-won-by/' + id);
       let lots = await response.json();
       commit('addWonToState', lots)
     },
@@ -66,7 +66,7 @@ export default createStore({
         return;
       }
       const headers = { "Authorization": 'Bearer ' + token };
-      const response = await fetch('http://localhost:80/api/check-user', { headers });
+      const response = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/check-user', { headers });
       let user = await response.json();
       commit('addUserInfo', user)
     },

@@ -11,9 +11,11 @@
 
 <script>
 import VueCookies from "vue-cookies";
+import mixin from "@/mixin/mixin";
 
 export default {
   name: 'google-sign-up',
+  mixins: [mixin],
   methods: {
     async handleClickSignIn() {
       try {
@@ -24,7 +26,8 @@ export default {
 
         let googleToken = (googleUser.getAuthResponse()).id_token;
 
-        const response = await fetch('http://localhost/api/google-login?token=' + googleToken);
+        const response = await fetch(
+            this.url + '/api/google-login?token=' + googleToken);
         let token = await response.json();
 
         VueCookies.set('token', token);

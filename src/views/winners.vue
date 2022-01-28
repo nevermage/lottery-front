@@ -21,6 +21,7 @@
 
 <script>
 import WinRaw from "../components/winRaw";
+
 export default {
   components: {WinRaw},
   mounted() {

@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     async sendMail() {
-      const responseObj = await fetch('http://localhost:80/api/password-reset-mail?email=' + this.email);
+      const responseObj = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/password-reset-mail?email=' + this.email);
       let response = await responseObj.json();
       if (response.error) {
         alert(response.error);
