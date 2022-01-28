@@ -30,7 +30,7 @@ export default {
           password: this.password
         };
         axios
-            .post("http://localhost/api/password-reset", params)
+            .post(process.env.VUE_APP_BACKEND_URL + '/api/password-reset', params)
             .then((data) => {
               alert(data.data.data);
               this.$router.push({ name: 'feed'});

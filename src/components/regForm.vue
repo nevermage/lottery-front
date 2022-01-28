@@ -38,7 +38,7 @@ export default {
     },
     register() {
       axios
-          .post("http://localhost/api/register", {
+          .post(process.env.VUE_APP_BACKEND_URL + '/api/register', {
             email: this.email,
             name: this.name,
             password: this.password,

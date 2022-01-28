@@ -48,7 +48,7 @@ export default {
     },
     login() {
       axios
-        .post("http://localhost/api/login", {
+        .post(process.env.VUE_APP_BACKEND_URL + '/api/login', {
           email: this.email,
           password: this.password,
         })

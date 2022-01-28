@@ -1,14 +1,14 @@
 <template>
-
-    <button class="fb-button" @click="signup"> Login with Facebook</button>
-
+  <button class="fb-button" @click="signup"> Login with Facebook</button>
 </template>
 
 <script>
 import VueCookies from "vue-cookies";
+import mixin from "@/mixin/mixin";
 
 export default {
   name: 'facebook-sign-up',
+  mixins: [mixin],
   methods: {
     signup() {
       this.logInWithFacebook();
@@ -21,7 +21,7 @@ export default {
     async logInWithFacebook() {
       await this.loadFacebookSDK(document, "script", "facebook-jssdk");
       await this.initFacebook();
-      await window.FB.login( (response) => {
+      await window.FB.login((response) => {
         if (response.authResponse) {
           let fbToken = response.authResponse.accessToken;
           this.signUpViaToken(fbToken);
@@ -33,7 +33,7 @@ export default {
       return false;
     },
     async initFacebook() {
-      window.fbAsyncInit = function() {
+      window.fbAsyncInit = function () {
         window.FB.init({
           appId: "329447389087542",
           cookie: true,
@@ -53,7 +53,7 @@ export default {
       fjs.parentNode.insertBefore(js, fjs);
     },
     async signUpViaToken(fbToken) {
-      const response = await fetch('http://localhost/api/facebook-login?token=' + fbToken);
+      const response = await fetch(this.url + '/api/facebook-login?token=' + fbToken);
       let token = await response.json();
 
       VueCookies.set('token', token);
@@ -63,9 +63,9 @@ export default {
 };
 </script>
 <style>
-.fb-button{
+.fb-button {
   display: inline-block;
-  color:white;
+  color: white;
   min-width: 110px;
   background-color: #000000a1;
   height: 2.5rem;
