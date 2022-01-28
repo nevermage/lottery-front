@@ -1,13 +1,22 @@
 <template>
-  <input :value="modelValue" @input="update" class="loginFormInput" type="text">
+  <input
+    :value="modelValue"
+    class="loginFormInput"
+    type="text"
+    @input="update"
+  >
 </template>
 
 <script>
 export default {
-  name: 'login-input',
+  name: 'LoginInput',
   props: {
-    modelValue: String
+    modelValue: {
+      type: String,
+      default: ''
+    }
   },
+  emits: ['update:modelValue'],
   methods: {
     update(event) {
       this.$emit('update:modelValue', event.target.value);

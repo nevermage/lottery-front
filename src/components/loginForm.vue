@@ -3,20 +3,36 @@
     <div class="loginFormHead">
       <div class="loginFormHeadGrid">
         <strong class="loginFormLabel">Log In</strong>
-        <a class="loginFormHeadSwitcher" @click="switchForms">Sign Up</a>
+        <a
+          class="loginFormHeadSwitcher"
+          @click="switchForms"
+        >Sign Up</a>
       </div>
     </div>
     <div class="loginForm">
-      <p class="loginFormInputTitle">email:</p>
-      <login-input v-model="email" placeholder="email"/>
-      <p class="loginFormInputTitle">password:</p>
-      <login-input v-model="password" placeholder="***********" type="password"/>
+      <p class="loginFormInputTitle">
+        email:
+      </p>
+      <login-input
+        v-model="email"
+        placeholder="email"
+      />
+      <p class="loginFormInputTitle">
+        password:
+      </p>
+      <login-input
+        v-model="password"
+        placeholder="***********"
+        type="password"
+      />
 
-      <google-sign-up @close="close"/>
-      <facebook-sign-up @close="close"/>
-      <a @click="this.$emit('forgotPassword')">Forgot password?</a>
+      <google-sign-up @close="close" />
+      <facebook-sign-up @close="close" />
+      <a @click="$emit('forgotPassword')">Forgot password?</a>
 
-      <send-form-button @click="login">Log In</send-form-button>
+      <send-form-button @click="login">
+        Log In
+      </send-form-button>
     </div>
   </div>
 </template>
@@ -26,6 +42,7 @@ import VueCookies from 'vue-cookies';
 import axios from 'axios'
 
 export default {
+  emits: ['forgotPassword', 'switch', 'close', 'forgot'],
   data: function() {
     return  {
       password: '',

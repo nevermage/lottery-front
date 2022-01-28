@@ -2,17 +2,22 @@
   <tr>
     <td>
       <router-link
-          :to="{name: 'profile', params: {id: data.id}}">
+        :to="{name: 'profile', params: {id: data.id}}"
+      >
         {{ data.name }},
       </router-link>
     </td>
     <td class="lotteryRightCell">
       <div class="rightCellContainer">
         <div class="lotteryCellImageContainer">
-          <img src="" alt="">
+          <img
+            src=""
+            alt=""
+          >
         </div>
         <router-link
-            :to="{name: 'lot', params: {id: data.lid}}">
+          :to="{name: 'lot', params: {id: data.lid}}"
+        >
           {{ data.lot }},
         </router-link>
       </div>
@@ -25,8 +30,10 @@
 export default {
   props: {
     data: {
-      Type: "Array",
-      required: true,
+      type: Array,
+      default: function () {
+        return []
+      }
     }
   }
 }

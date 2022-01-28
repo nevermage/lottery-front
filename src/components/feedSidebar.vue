@@ -7,8 +7,8 @@
     </div>
     <li class="winnersList">
       <ul
-          v-for="(winner, index) in winners"
-          :key=index
+        v-for="(winner, index) in winners"
+        :key="index"
       >
         {{ winner.name }}
       </ul>
@@ -18,13 +18,13 @@
 
 <script>
 export default {
-  mounted() {
-    this.$store.dispatch('fetchWinners', this.$route.params.id);
-  },
   computed: {
     winners() {
       return this.$store.getters.getWinners;
     },
+  },
+  mounted() {
+    this.$store.dispatch('fetchWinners', this.$route.params.id);
   }
 }
 

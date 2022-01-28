@@ -1,5 +1,10 @@
 <template>
-  <button class="fb-button" @click="signup"> Login with Facebook</button>
+  <button
+    class="fb-button"
+    @click="signup"
+  >
+    Login with Facebook
+  </button>
 </template>
 
 <script>
@@ -7,8 +12,9 @@ import VueCookies from "vue-cookies";
 import mixin from "@/mixin/mixin";
 
 export default {
-  name: 'facebook-sign-up',
+  name: 'FacebookSignUp',
   mixins: [mixin],
+  emits: ['close'],
   methods: {
     signup() {
       this.logInWithFacebook();

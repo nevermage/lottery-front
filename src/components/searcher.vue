@@ -1,31 +1,37 @@
 <template>
-  <div class="searcher" id="staggered-list-demo">
+  <div
+    id="staggered-list-demo"
+    class="searcher"
+  >
     <input
-        class="searchField" type="text" v-model="query"
-        @focus="searchActive = true" @blur="searchActive = false"
-    />
+      v-model="query"
+      class="searchField"
+      type="text"
+      @focus="searchActive = true"
+      @blur="searchActive = false"
+    >
     <transition-group
-        name="staggered-fade"
-        tag="ul"
-        v-bind:css="false"
-        v-on:before-enter="beforeEnter"
-        v-on:enter="enter"
-        v-on:leave="leave"
+      name="staggered-fade"
+      tag="ul"
+      :css="false"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @leave="leave"
     >
       <div v-if="searchActive">
         <li
-            v-for="(lot, index) in computedList"
-            v-bind:key="lot.name"
-            v-bind:data-index="index"
+          v-for="(lot, index) in computedList"
+          :key="lot.name"
+          :data-index="index"
         >
           <router-link
-              class="searchLink"
-              :to="{name: 'lot', params: {id: lot.id}}"
-          >{{ lot.name }}
+            class="searchLink"
+            :to="{name: 'lot', params: {id: lot.id}}"
+          >
+            {{ lot.name }}
           </router-link>
         </li>
       </div>
-
     </transition-group>
   </div>
 </template>

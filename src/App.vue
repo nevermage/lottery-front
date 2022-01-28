@@ -1,18 +1,27 @@
 <template>
   <div>
     <transition name="fade">
-      <authorization-form v-if="isFormVisible" @close="closeForm"/>
+      <authorization-form
+        v-if="isFormVisible"
+        @close="closeForm"
+      />
     </transition>
 
-    <my-header v-if="$route.meta.hideLayout == null" @show="showForm"/>
+    <my-header
+      v-if="$route.meta.hideLayout == null"
+      @show="showForm"
+    />
 
     <router-view v-slot="{ Component }">
-      <transition name="fade" mode="in-out">
-        <component :is="Component"/>
+      <transition
+        name="fade"
+        mode="in-out"
+      >
+        <component :is="Component" />
       </transition>
     </router-view>
 
-    <my-footer v-if="$route.meta.hideLayout == null"/>
+    <my-footer v-if="$route.meta.hideLayout == null" />
   </div>
 </template>
 
