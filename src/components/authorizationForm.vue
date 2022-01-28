@@ -36,7 +36,7 @@
         @switch="switchForms"
         @close="$emit('close');"
       />
-      <reg-form
+      <register-form
         v-if="formType === 1"
         @switch="switchForms"
         @close="close"
@@ -47,11 +47,11 @@
 
 <script>
 import LoginForm from "./loginForm";
-import RegForm from "./regForm";
+import RegisterForm from "./registerForm";
 import PasswordResetForm from "@/components/passwordResetForm";
 
 export default {
-  components: {PasswordResetForm, RegForm, LoginForm},
+  components: {PasswordResetForm, RegisterForm, LoginForm},
   emits: ['close'],
   data: function() {
     return  {

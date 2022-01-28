@@ -9,7 +9,7 @@
           <th>Winner</th>
           <th>Lottery</th>
         </tr>
-        <win-raw
+        <winners-list-item
           v-for="(data, index) in winners"
           :key="index"
           :data="data"
@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import WinRaw from "../components/winRaw";
+import winnersListItem from "../components/winnersListITem";
 
 export default {
-  components: {WinRaw},
+  components: { winnersListItem },
   computed: {
     winners() {
       return this.$store.getters.getWinners;

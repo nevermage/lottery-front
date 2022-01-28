@@ -1,17 +1,17 @@
 <template>
   <div>
     <sidebar />
-    <feed-main />
+    <feed-lots-list />
   </div>
 </template>
 
 <script>
-import feedMain from '../components/feedMain';
+import feedLotsList from '../components/feedLotsList';
 import sidebar from '../components/feedSidebar';
 
 export default {
   components: {
-    feedMain,
+    feedLotsList,
     sidebar
   }
 }
