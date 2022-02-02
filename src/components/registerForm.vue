@@ -5,7 +5,7 @@
         <strong class="loginFormLabel">Sign Up</strong>
         <a
           class="loginFormHeadSwitcher"
-          @click="switchForms"
+          @click="$emit('switch')"
         >Log In</a>
       </div>
     </div>
@@ -47,50 +47,43 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios'
 
-export default {
-  emits: ['close', 'switch'],
-  data: function () {
-    return {
-      name: '',
-      email: '',
-      password: '',
-      passwordConfirm: '',
-    }
-  },
-  methods: {
-    switchForms() {
-      this.$emit('switch');
-    },
-    async register() {
-      try {
-        let response = await axios
-            .post(process.env.VUE_APP_BACKEND_URL + '/api/register', {
-              email: this.email,
-              name: this.name,
-              password: this.password,
-              password_confirmation: this.passwordConfirm,
-            })
-        alert(response.data.data);
-        this.$emit('close');
-        this.clearRegisterData();
-      } catch (error) {
-        alert(
-            error.response.data.message
-                ? Object.values(error.response.data.errors)[0][0]
-                : error.response.data.data
-        );
-      }
-    },
-    clearRegisterData() {
-      this.name = '';
-      this.email = '';
-      this.password = '';
-      this.passwordConfirm = '';
+import {Vue} from "vue-property-decorator";
+
+export default class registerForm extends Vue {
+  name: string = ''
+  email: string = ''
+  password: string = ''
+  passwordConfirm: string = ''
+
+  clearRegisterData() {
+    this.name = '';
+    this.email = '';
+    this.password = '';
+    this.passwordConfirm = '';
+  }
+
+  async register() {
+    try {
+      let response = await axios
+          .post(process.env.VUE_APP_BACKEND_URL + '/api/register', {
+            email: this.email,
+            name: this.name,
+            password: this.password,
+            password_confirmation: this.passwordConfirm,
+          })
+      alert(response.data.data);
+      this.$emit('close');
+      this.clearRegisterData();
+    } catch (error) {
+      alert(
+          error.response.data.message
+              ? Object.values(error.response.data.errors)[0][0]
+              : error.response.data.data
+      );
     }
   }
 }
-
 </script>

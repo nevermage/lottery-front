@@ -5,7 +5,7 @@
         <strong class="loginFormLabel">Log In</strong>
         <a
           class="loginFormHeadSwitcher"
-          @click="switchForms"
+          @click="$emit('switch')"
         >Sign Up</a>
       </div>
     </div>
@@ -26,8 +26,8 @@
         type="password"
       />
 
-      <google-sign-up @close="close" />
-      <facebook-sign-up @close="close" />
+      <google-sign-up @close="$emit('close')" />
+      <facebook-sign-up @close="$emit('close')" />
       <a @click="$emit('forgotPassword')">Forgot password?</a>
 
       <send-form-button @click="login">
@@ -37,51 +37,40 @@
   </div>
 </template>
 
-<script>
-import VueCookies from 'vue-cookies';
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
 import axios from 'axios'
+import {usersModule} from "../store/store";
+import {VueCookieNext} from "vue-cookie-next";
 
-export default {
-  emits: ['forgotPassword', 'switch', 'close', 'forgot'],
-  data: function () {
-    return {
-      password: '',
-      email: '',
-    }
-  },
-  methods: {
-    switchForms() {
-      this.$emit('switch');
-    },
-    close() {
-      this.$emit('close');
-    },
-    clearLoginData() {
-      this.password = '';
-      this.email = '';
-    },
-    async forgotPassword() {
-      this.$emit('forgot');
-    },
-    async login() {
-      try {
-        const response = await axios
-            .post(process.env.VUE_APP_BACKEND_URL + '/api/login', {
-              email: this.email,
-              password: this.password,
-            });
+export default class loginForm extends Vue {
+  email: string = ''
+  password: string = ''
 
-        VueCookies.set('token', response.data);
-        this.$store.dispatch('fetchUserInfo');
-        this.close();
-        this.clearLoginData();
-      } catch (error) {
-        alert(
-            error.response.data.message
-                ? Object.values(error.response.data.errors)[0][0]
-                : error.response.data.data
-        );
-      }
+
+  clearLoginData() {
+    this.email = ''
+    this.password = ''
+  }
+
+  async login() {
+    try {
+      const response = await axios
+          .post(process.env.VUE_APP_BACKEND_URL + '/api/login', {
+            email: this.email,
+            password: this.password,
+          });
+
+      VueCookieNext.setCookie('token', response.data)
+      await usersModule.fetchUserInfo()
+      this.$emit('close')
+      this.clearLoginData();
+    } catch (error) {
+      alert(
+          error.response.data.message
+              ? Object.values(error.response.data.errors)[0][0]
+              : error.response.data.data
+      );
     }
   }
 }

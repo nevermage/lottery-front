@@ -16,7 +16,7 @@
           <strong>Own lotteries</strong>
           <div class="profilePageLinks">
             <router-link
-              v-for="lot in own"
+              v-for="lot in ownLots"
               :key="lot.id"
               :to="{name: 'lot', params: {id: lot.id}}"
             >
@@ -28,7 +28,7 @@
           <strong>Won lotteries</strong>
           <div class="profilePageLinks">
             <router-link
-              v-for="lot in won"
+              v-for="lot in wonLots"
               :key="lot.id"
               :to="{name: 'lot', params: {id: lot.id}}"
             >
@@ -52,35 +52,35 @@
   </main>
 </template>
 
-<script>
-import VueCookies from "vue-cookies";
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
+import {usersModule, lotsModule} from "../store/store";
+import {VueCookieNext} from "vue-cookie-next";
 
-export default {
-  computed: {
-    user() {
-      return this.$store.getters.getUser;
-    },
-    own() {
-      return this.$store.getters.getOwn;
-    },
-    won() {
-      return this.$store.getters.getWon;
-    },
-    userInfo() {
-      return this.$store.getters.getUserInfo;
-    },
-  },
+export default class profile extends Vue {
   mounted() {
-    this.$store.dispatch('fetchUser', this.$route.params.id);
-    this.$store.dispatch('fetchOwn', this.$route.params.id);
-    this.$store.dispatch('fetchWon', this.$route.params.id);
-    this.$store.dispatch('fetchUserInfo');
-  },
-  methods: {
-    logout() {
-      VueCookies.remove('token');
-      this.$store.dispatch('fetchUserInfo');
-    }
+    usersModule.fetchUser(this.$route.params.id)
+    usersModule.fetchUserInfo()
+    lotsModule.fetchOwnLots(this.$route.params.id)
+    lotsModule.fetchWonLots(this.$route.params.id)
+  }
+
+  get user() {
+    return usersModule.getUser
+  }
+  get userInfo() {
+    return usersModule.getUserInfo
+  }
+  get ownLots() {
+    return lotsModule.getOwnLots
+  }
+  get wonLots() {
+    return lotsModule.getWonLots
+  }
+
+  logout() {
+    VueCookieNext.removeCookie('token')
+    usersModule.fetchUserInfo()
   }
 }
 </script>

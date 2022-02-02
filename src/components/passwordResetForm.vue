@@ -9,26 +9,21 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'PasswordResetForm',
-  emits: ['back', 'close'],
-  data() {
-    return {
-      email: ''
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
+
+export default class passwordResetForm extends Vue {
+  email: string = ''
+
+  async sendMail() {
+    const responseObj = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/password-reset-mail?email=' + this.email);
+    let response = await responseObj.json();
+    if (response.error) {
+      alert(response.error);
+      return;
     }
-  },
-  methods: {
-    async sendMail() {
-      const responseObj = await fetch(process.env.VUE_APP_BACKEND_URL + '/api/password-reset-mail?email=' + this.email);
-      let response = await responseObj.json();
-      if (response.error) {
-        alert(response.error);
-        return;
-      }
-      alert(response.data);
-      this.$emit('close');
-    }
+    alert(response.data);
+    this.$emit('close');
   }
 }
 </script>

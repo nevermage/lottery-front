@@ -2,9 +2,9 @@
   <tr>
     <td>
       <router-link
-        :to="{name: 'profile', params: {id: data.id}}"
+        :to="{name: 'profile', params: {id: winner.id}}"
       >
-        {{ data.name }},
+        {{ winner.name }},
       </router-link>
     </td>
     <td class="lotteryRightCell">
@@ -16,25 +16,19 @@
           >
         </div>
         <router-link
-          :to="{name: 'lot', params: {id: data.lid}}"
+          :to="{name: 'lot', params: {id: winner.lid}}"
         >
-          {{ data.lot }},
+          {{ winner.lot }},
         </router-link>
       </div>
     </td>
   </tr>
 </template>
 
-<script>
+<script lang="ts">
+import {Prop, Vue} from "vue-property-decorator";
 
-export default {
-  props: {
-    data: {
-      type: Array,
-      default: function () {
-        return []
-      }
-    }
-  }
+export default class winnersListItem extends Vue {
+  @Prop (Object) winner: object
 }
 </script>

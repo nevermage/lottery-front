@@ -7,20 +7,15 @@
   >
 </template>
 
-<script>
-export default {
-  name: 'LoginInput',
-  props: {
-    modelValue: {
-      type: String,
-      default: ''
-    }
-  },
-  emits: ['update:modelValue'],
-  methods: {
-    update(event) {
-      this.$emit('update:modelValue', event.target.value);
-    }
+<script lang="ts">
+import {Prop, Vue, Emit} from "vue-property-decorator";
+
+export default class loginInput extends Vue {
+  @Prop (String) modelValue: String
+
+  @Emit('update:modelValue')
+  update(event) {
+    return event.target.value
   }
 }
 </script>

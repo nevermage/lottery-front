@@ -16,16 +16,17 @@
   </aside>
 </template>
 
-<script>
-export default {
-  computed: {
-    winners() {
-      return this.$store.getters.getWinners;
-    },
-  },
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
+import {usersModule} from "../store/store";
+
+export default class feedSidebar extends Vue{
   mounted() {
-    this.$store.dispatch('fetchWinners', this.$route.params.id);
+    usersModule.fetchWinners()
+  }
+
+  get winners() {
+    return usersModule.getWinners
   }
 }
-
 </script>
