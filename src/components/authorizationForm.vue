@@ -45,29 +45,17 @@
   </div>
 </template>
 
-<script>
-import LoginForm from "./loginForm";
-import RegisterForm from "./registerForm";
-import PasswordResetForm from "@/components/passwordResetForm";
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
 
-export default {
-  components: {PasswordResetForm, RegisterForm, LoginForm},
-  emits: ['close'],
-  data: function() {
-    return  {
-      formType: 2
-    }
-  },
-  methods: {
-    forgotPassword() {
-      console.log('aboba')
-    },
-    switchForms () {
-      if (this.formType === 1) {
-        this.formType = 2;
-      } else {
-        this.formType = 1;
-      }
+export default class authorizationForm extends Vue {
+  formType: number = 2
+
+  switchForms () {
+    if (this.formType === 1) {
+      this.formType = 2;
+    } else {
+      this.formType = 1;
     }
   }
 }

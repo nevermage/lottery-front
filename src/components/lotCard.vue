@@ -18,15 +18,11 @@
   </ul>
 </template>
 
-<script>
-export default {
-  props: {
-    lot: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  }
+<script lang="ts">
+import { Vue, Prop } from 'vue-property-decorator'
+
+export default class lotCard extends Vue {
+  @Prop (Object) lot: object
 }
+
 </script>

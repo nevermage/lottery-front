@@ -8,7 +8,7 @@
     </transition>
 
     <my-header
-      v-if="$route.meta.hideLayout == null"
+      v-if="$route.meta.hideLayout === undefined"
       @show="showForm"
     />
 
@@ -21,36 +21,48 @@
       </transition>
     </router-view>
 
-    <my-footer v-if="$route.meta.hideLayout == null" />
+    <my-footer v-if="$route.meta.hideLayout === undefined" />
   </div>
 </template>
 
-<script>
-import AuthorizationForm from "./components/authorizationForm";
-import MyFooter from "./components/myFooter";
-import MyHeader from "./components/myHeader";
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
 
-export default {
-  components: {
-    MyHeader,
-    MyFooter,
-    AuthorizationForm,
-  },
-  data() {
-    return {
-      isFormVisible: false,
-      formType: 1
-    }
-  },
-  methods: {
-    showForm() {
+export default class app extends Vue {
+  isFormVisible: boolean = false
+  formType: number = 1
+
+  showForm() {
       this.isFormVisible = true;
-    },
-    closeForm() {
-      this.isFormVisible = false;
-    }
+  }
+
+  closeForm() {
+    this.isFormVisible = false;
   }
 }
+
+
+// export default({
+//   components: {
+//     MyHeader,
+//     MyFooter,
+//     AuthorizationForm,
+//   },
+//   data() {
+//     return {
+//       isFormVisible: false,
+//       formType: 1
+//     }
+//   },
+//   methods: {
+//     showForm() {
+//       this.isFormVisible = true;
+//     },
+//     closeForm() {
+//       this.isFormVisible = false;
+//     }
+//   }
+// });
 </script>
 
 <style>

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 export default {
     clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
     scope: process.env.VUE_APP_GOOGLE_CLIENT_scope,

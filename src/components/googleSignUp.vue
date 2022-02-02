@@ -9,38 +9,36 @@
   </div>
 </template>
 
-<script>
-import VueCookies from "vue-cookies";
-import mixin from "@/mixin/mixin";
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
+import {VueCookieNext} from "vue-cookie-next";
+import {usersModule} from "../store/store";
 
-export default {
-  name: 'GoogleSignUp',
-  mixins: [mixin],
-  emits: ['close'],
-  methods: {
-    async handleClickSignIn() {
-      try {
-        const googleUser = await this.$gAuth.signIn();
-        if (!googleUser) {
-          return null;
-        }
+export default class googleSignUp extends Vue {
+  $gAuth: any;
 
-        let googleToken = (googleUser.getAuthResponse()).id_token;
-
-        const response = await fetch(
-            this.url + '/api/google-login?token=' + googleToken);
-        let token = await response.json();
-
-        VueCookies.set('token', token);
-        this.$store.dispatch('fetchUserInfo');
-        this.$emit('close');
-
-      } catch (error) {
+  async handleClickSignIn() {
+    try {
+      const googleUser = await this.$gAuth.signIn();
+      if (!googleUser) {
         return null;
       }
+
+      let googleToken = (googleUser.getAuthResponse()).id_token;
+
+      const response = await fetch(
+          process.env.VUE_APP_BACKEND_URL + '/api/google-login?token=' + googleToken);
+      let token = await response.json();
+
+      VueCookieNext.setCookie('token', token);
+      await usersModule.fetchUserInfo()
+      this.$emit('close');
+
+    } catch (error) {
+      return null;
     }
   }
-};
+}
 </script>
 
 <style>

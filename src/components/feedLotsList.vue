@@ -11,7 +11,7 @@
         <strong>Lots to play</strong>
       </div>
       <li class="lotGrid">
-        <lot
+        <lot-card
           v-for="lot in lots"
           :key="lot.id"
           :lot="lot"
@@ -21,24 +21,16 @@
   </main>
 </template>
 
-<script>
-import lot from './lotCard';
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
+import {lotsModule, usersModule} from "../store/store";
 
-export default {
-  components: {
-    lot,
-  },
-  computed: {
-    lots() {
-      return this.$store.getters.getLots;
-    },
-    users() {
-      return this.$store.getters.getUsers;
-    }
-  },
+export default class feedLotsList extends Vue{
   mounted() {
-    this.$store.dispatch('fetchLots');
-    this.$store.dispatch('fetchUsers');
+    lotsModule.fetchLots()
   }
-};
+  get lots() {
+    return lotsModule.getLots
+  }
+}
 </script>

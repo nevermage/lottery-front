@@ -20,7 +20,7 @@
     >
       <div v-if="searchActive">
         <li
-          v-for="(lot, index) in computedList"
+          v-for="(lot, index) in searchResults"
           :key="lot.name"
           :data-index="index"
         >
@@ -36,53 +36,55 @@
   </div>
 </template>
 
-<script>
-import Velocity from 'velocity-animate';
-export default {
-  data() {
-    return {
-      query: '',
-      searchActive: false,
-    }
-  },
-  computed: {
-    lots() {
-      return this.$store.getters.getLots;
-    },
-    computedList: function () {
-      const vm = this;
-      return this.lots.filter(function (lot) {
-        if (vm.query !== '') {
-          return lot.name.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
-        }
-      })
-    }
-  },
-  methods: {
-    beforeEnter: function (el) {
-      el.style.opacity = 0
-      el.style.height = 0
-    },
-    enter: function (el, done) {
-      const delay = el.dataset.index * 150
-      setTimeout(function () {
-        Velocity(
-            el,
-            { opacity: 1, height: '1.6em' },
-            { complete: done }
-        )
-      }, delay)
-    },
-    leave: function (el, done) {
-      const delay = el.dataset.index * 150
-      setTimeout(function () {
-        Velocity(
-            el,
-            { opacity: 0, height: 0 },
-            { complete: done }
-        )
-      }, delay)
-    }
+<script lang="ts">
+import Velocity from "velocity-animate";
+import {lotsModule} from "../store/store";
+import {Vue} from "vue-property-decorator";
+
+export default class searcher extends Vue {
+  query: string = ''
+  searchActive: boolean = false
+
+  beforeEnter(el) {
+    el.style.opacity = 0
+    el.style.height = 0
+  }
+  enter(el, done) {
+    el.style.opacity = 1;
+    el.style.height = '1.6em';
+    // const delay = el.dataset.index * 150
+    // setTimeout(function () {
+    //   Velocity(
+    //       el,
+    //       { opacity: 1, height: '1.6em' },
+    //       { complete: done }
+    //   )
+    // }, delay)
+  }
+  leave(el, done) {
+    el.style.opacity = 0;
+    el.style.height = 0;
+    // const delay = el.dataset.index * 150
+    // setTimeout(function () {
+    //   Velocity(
+    //       el,
+    //       { opacity: 0, height: 0 },
+    //       { complete: done }
+    //   )
+    // }, delay)
+  }
+
+  get lots() {
+    return lotsModule.getLots
+  }
+
+  get searchResults() {
+    const vm = this;
+    return this.lots['filter'](function (lot) {
+      if (vm.query !== '') {
+        return lot.name.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+      }
+    })
   }
 }
 </script>

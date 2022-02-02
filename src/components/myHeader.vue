@@ -25,29 +25,22 @@
       <a
         v-if="user === 'UnAuthenticated'"
         class="headerLoginButton"
-        @click="show"
+        @click="$emit('show')"
       >Log in</a>
     </div>
   </header>
 </template>
 
-<script>
-import searcher from "./searcher";
-export default {
-  components: {searcher},
-  emits: ['show'],
-  computed: {
-    user() {
-      return this.$store.getters.getUserInfo;
-    }
-  },
+<script lang="ts">
+import {Vue} from "vue-property-decorator"
+import {usersModule} from "../store/store";
+
+export default class myHeader extends Vue {
   mounted() {
-    this.$store.dispatch('fetchUserInfo');
-  },
-  methods: {
-    show() {
-      this.$emit('show')
-    }
+    usersModule.fetchUserInfo()
+  }
+  get user() {
+    return usersModule.getUserInfo
   }
 }
 </script>

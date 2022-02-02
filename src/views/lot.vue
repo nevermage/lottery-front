@@ -24,7 +24,7 @@
           </div>
           <button
             class="lotPageJoinButton"
-            @click="joinLot()"
+            @click="joinLot"
           >
             Take part
           </button>
@@ -34,54 +34,52 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
+import {lotsModule} from "../store/store";
 import axios from "axios";
-import VueCookies from "vue-cookies";
+import {VueCookieNext} from "vue-cookie-next";
 
-export default {
-  data() {
-    return {
-      timer: 111
-    }
-  },
-  computed: {
-    lot() {
-      return this.$store.getters.getLot;
-    },
-  },
-  created() {
+export default class lot extends Vue{
+  timer: number = 1
+
+  async mounted() {
+    await lotsModule.fetchLot(this.$route.params.id)
     this.countDownTimer();
-  },
-  mounted() {
-    this.$store.dispatch('fetchLot', this.$route.params.id);
-  },
-  methods: {
-    setTimer(time) {
-      this.timer = time;
-    },
-    async joinLot() {
-      let token = VueCookies.get('token');
-      if (!token) {
-        alert('Only authorized users can join to lot');
-        return
-      }
-      try {
-        let response = await axios
-            .post(process.env.VUE_APP_BACKEND_URL + '/api/join/' + this.$route.params.id, [],
-                {'headers': {'Authorization': 'Bearer ' + token}})
-        alert(response.data.data);
-      } catch (error) {
-        alert(error.response.data.data);
-      }
-    },
-    countDownTimer() {
-      if (this.timer > 0) {
-        setTimeout(() => {
-          this.timer -= 1
-          this.countDownTimer()
-        }, 1000)
-      }
+  }
+  get lot() {
+    let lot = lotsModule.getLot
+    this.timer = lot['roll_time']
+    return lot
+  }
+
+  setTimer(time) {
+    this.timer = time;
+  }
+
+  async joinLot() {
+    let token = VueCookieNext.getCookie('token');
+    if (!token) {
+      alert('Only authorized users can join to lot');
+      return
+    }
+    try {
+      let response = await axios
+          .post(process.env.VUE_APP_BACKEND_URL + '/api/join/' + this.$route.params.id, [],
+              {'headers': {'Authorization': 'Bearer ' + token}})
+      alert(response.data.data);
+    } catch (error) {
+      alert(error.response.data.data);
     }
   }
+  countDownTimer() {
+    if (this.timer > 0) {
+      setTimeout(() => {
+        this.timer -= 1
+        this.countDownTimer()
+      }, 1000)
+    }
+  }
+
 }
 </script>

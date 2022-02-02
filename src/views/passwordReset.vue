@@ -22,45 +22,42 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
 import axios from "axios";
 
-export default {
-  name: 'PasswordReset',
-  data() {
-    return {
-      password: '',
-      passwordConfirmation: ''
+export default class passwordReset extends Vue {
+  password: string = ''
+  passwordConfirmation: string = ''
+
+
+  async send() {
+    if (this.validation()) {
+      let params = {
+        token: this.$route.params.token,
+        password: this.password
+      };
+      try {
+        let response = await axios
+            .post(process.env.VUE_APP_BACKEND_URL + '/api/password-reset', params)
+            alert(response.data.data);
+            this.$router.push({ name: 'feed'});
+      } catch (error) {
+            alert(error.response.data.error);
+      }
     }
-  },
-  methods: {
-    async send() {
-      if (this.validation()) {
-        let params = {
-          token: this.$route.params.token,
-          password: this.password
-        };
-        try {
-          let response = await axios
-              .post(process.env.VUE_APP_BACKEND_URL + '/api/password-reset', params)
-              alert(response.data.data);
-              this.$router.push({ name: 'feed'});
-        } catch (error) {
-              alert(error.response.data.error);
-        };
-      }
-    },
-    validation() {
-      if (this.password !== this.passwordConfirmation) {
-        alert('Passwords do not match');
-        return false;
-      }
-      if (this.password.length < 8) {
-        alert('Password must be 8 characters at least');
-        return false;
-      }
-      return true;
+  }
+
+  validation() {
+    if (this.password !== this.passwordConfirmation) {
+      alert('Passwords do not match');
+      return false;
     }
+    if (this.password.length < 8) {
+      alert('Password must be 8 characters at least');
+      return false;
+    }
+    return true;
   }
 }
 </script>

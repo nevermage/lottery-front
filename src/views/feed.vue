@@ -1,19 +1,15 @@
 <template>
   <div>
-    <sidebar />
+    <feed-sidebar />
     <feed-lots-list />
   </div>
 </template>
 
-<script>
-import feedLotsList from '../components/feedLotsList';
-import sidebar from '../components/feedSidebar';
+<script lang="ts">
+import {Vue} from "vue-property-decorator";
 
-export default {
-  components: {
-    feedLotsList,
-    sidebar
-  }
+export default class feed extends Vue {
+
 }
 
 </script>
