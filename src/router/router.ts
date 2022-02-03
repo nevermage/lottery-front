@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { RouteRecordRaw } from "vue-router";
+import {usersModule} from "../store/store";
 import feed from "../views/feed.vue";
 import lot from "../views/lot.vue";
 import winners from "../views/winners.vue";
 import passwordReset from "../views/passwordReset.vue";
 import profile from "../views/profile.vue";
 import admin from '../views/admin.vue'
-import {usersModule} from "../store/store";
+import createLot from "../views/createLot.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -33,12 +34,13 @@ const routes: Array<RouteRecordRaw> = [
         path: '/admin',
         name: 'admin',
         component: admin,
-        beforeEnter: (to, from, next) => {
+        beforeEnter: async (to, from, next) => {
+            await usersModule.fetchUserInfo()
             if (usersModule.getUserInfo['role_id'] === 2) {
                 next();
                 return;
             }
-            router.push({ name: 'feed' })
+            await router.push({ name: 'feed' })
         },
         meta: { hideLayout: true }
     },
@@ -46,6 +48,20 @@ const routes: Array<RouteRecordRaw> = [
         path: '/password-reset/:token',
         component: passwordReset,
         meta: { hideLayout: true }
+    },
+    {
+        path: '/create-lot',
+        component: createLot,
+        name: 'create-lot',
+        beforeEnter: async (to, from, next) => {
+            await usersModule.fetchUserInfo()
+            if (usersModule.getUserInfo['role_id'] !== undefined) {
+                next();
+                return;
+            }
+            alert('Only authorized users can create lots')
+            await router.push({ name: 'feed' })
+        }
     },
     {
         path: '/:catchAll(.*)',

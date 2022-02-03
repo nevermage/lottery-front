@@ -3,8 +3,18 @@
     <div class="profilePageContainer">
       <div class="profilePageImageContainer">
         <img
+          v-if="user.image_path && user.image_path.includes('http')"
           :src="user.image_path"
           alt=""
+        >
+        <img
+          v-else-if="user.image_path"
+          :src="url + '/storage/' + user.image_path"
+          alt=""
+        >
+        <img
+          v-else
+          :src="url + '/storage/users/default/image.png'"
         >
       </div>
       <div class="profilePageInfo">
@@ -58,6 +68,8 @@ import {usersModule, lotsModule} from "../store/store";
 import {VueCookieNext} from "vue-cookie-next";
 
 export default class profile extends Vue {
+  url = process.env.VUE_APP_BACKEND_URL
+
   mounted() {
     usersModule.fetchUser(this.$route.params.id)
     usersModule.fetchUserInfo()
@@ -84,3 +96,17 @@ export default class profile extends Vue {
   }
 }
 </script>
+
+<style>
+.profilePageImageContainer {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.profilePageImageContainer img {
+  width: 100%;
+}
+</style>
