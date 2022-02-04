@@ -15,7 +15,9 @@
         accept="image/png, image/jpeg"
         @change="fileUpload"
       >
-      <button @click="deleteImage">Delete image</button>
+      <button @click="deleteImage">
+        Delete image
+      </button>
     </div>
     <div class="createLotRightContainer">
       <h2>Lot name:</h2>

@@ -25,13 +25,24 @@
         <div class="profilePageLotsList">
           <strong>Own lotteries</strong>
           <div class="profilePageLinks">
-            <router-link
-              v-for="lot in ownLots"
-              :key="lot.id"
-              :to="{name: 'lot', params: {id: lot.id}}"
-            >
-              {{ lot.name }},
-            </router-link>
+            <div v-if="userInfo.id === user.id">
+              <router-link
+                v-for="lot in myLots"
+                :key="lot.id"
+                :to="{name: 'lot', params: {id: lot.id}}"
+              >
+                {{ lot.name }},
+              </router-link>
+            </div>
+            <div v-else>
+              <router-link
+                v-for="lot in ownLots"
+                :key="lot.id"
+                :to="{name: 'lot', params: {id: lot.id}}"
+              >
+                {{ lot.name }},
+              </router-link>
+            </div>
           </div>
         </div>
         <div class="profilePageLotsList">
@@ -74,6 +85,7 @@ export default class profile extends Vue {
     usersModule.fetchUser(this.$route.params.id)
     usersModule.fetchUserInfo()
     lotsModule.fetchOwnLots(this.$route.params.id)
+    lotsModule.fetchMyLots()
     lotsModule.fetchWonLots(this.$route.params.id)
   }
 
@@ -82,6 +94,9 @@ export default class profile extends Vue {
   }
   get userInfo() {
     return usersModule.getUserInfo
+  }
+  get myLots() {
+    return lotsModule.getMyLots
   }
   get ownLots() {
     return lotsModule.getOwnLots
