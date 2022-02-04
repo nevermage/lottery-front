@@ -1,8 +1,8 @@
 <template>
   <main>
     <div class="createLotContainer">
-      <div class="leftContainer">
-        <div class="imageContainer">
+      <div class="createLeftContainer">
+        <div class="createLotImageContainer">
           <img
             id="createLotImagePreview"
             src=""
@@ -17,7 +17,7 @@
           @change="fileUpload"
         >
       </div>
-      <div class="rightContainer">
+      <div class="createLotRightContainer">
         <h2>Lot name:</h2>
         <login-input
           v-model="name"
@@ -89,12 +89,12 @@ export default class createLot extends Vue {
 
 </script>
 
-<style scoped>
-button {
+<style>
+.createLotRightContainer button {
   margin-top: 20px;
 }
 
-textarea {
+.createLotRightContainer textarea {
   margin-top: 5px;
   font-size: 22px;
   padding: 10px;
@@ -104,20 +104,20 @@ textarea {
   border-radius: 6px;
 }
 
-input {
+.createLeftContainer input {
   font-size: 24px;
 }
 
-h2 {
+.createLotRightContainer h2 {
   font-family: Rosario;
   font-size: 28px;
 }
 
-.rightContainer {
+.createLotRightContainer {
   padding: 20px;
 }
 
-.imageContainer {
+.createLotImageContainer {
   border-radius: 5px;
   height: 400px;
   width: 400px;
@@ -126,9 +126,12 @@ h2 {
   background: #ddd;
   box-shadow: #7b7b7b 0 0 5px;
   margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.imageContainer img {
+.createLotImageContainer img {
   max-width: 100%;
   width: 100%;
 
