@@ -2,7 +2,13 @@
   <ul class="lotGridCard">
     <div class="lotGridCardImgContainer">
       <img
-        src=""
+        v-if="lot.image_path"
+        :src="url + '/storage/' + lot.image_path"
+        alt="lot image"
+      >
+      <img
+        v-else
+        :src="url + '/storage/lots/default/image.jpg'"
         alt="lot image"
       >
     </div>
@@ -22,7 +28,22 @@
 import { Vue, Prop } from 'vue-property-decorator'
 
 export default class lotCard extends Vue {
+  url = process.env.VUE_APP_BACKEND_URL
   @Prop (Object) lot: object
 }
 
 </script>
+
+<style>
+.lotGridCardImgContainer {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lotGridCardImgContainer img {
+  width: 100%;
+  height: auto;
+}
+</style>

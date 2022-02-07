@@ -1,85 +1,46 @@
 <template>
   <main>
-    <div class="lotPageContainer">
-      <h1 class="lotPageTitle">
-        {{ lot.name }}
-      </h1>
-      <div class="lotPageGrid">
-        <div class="lotPageImage">
-          <img
-            :src="lot.image_path"
-            alt=""
-          >
-        </div>
-        <div class="lotPageInfo">
-          <p class="lotPageDescription">
-            {{ lot.description }}
-          </p>
-          <p class="lotPageAuthorName">
-            Created by: {{ lot.creator }}
-          </p>
-          <div class="lotPageRollTimerContainer">
-            <strong class="lotPageRoll">Roll timer:</strong>
-            <strong class="lotPageTimer">{{ timer }}</strong>
-          </div>
-          <button
-            class="lotPageJoinButton"
-            @click="joinLot"
-          >
-            Take part
-          </button>
-        </div>
-      </div>
-    </div>
+    <lot-page-edit
+      v-if="user.id === lot.creator_id && (lot.status ==='accepted' || lot.status === 'unmoderated')"
+      :lot="lot"
+    />
+    <lot-page-display
+      v-else
+      :lot="lot"
+    />
   </main>
 </template>
 
 <script lang="ts">
 import {Vue} from "vue-property-decorator";
-import {lotsModule} from "../store/store";
-import axios from "axios";
-import {VueCookieNext} from "vue-cookie-next";
+import {lotsModule, usersModule} from "../store/store";
 
 export default class lot extends Vue{
-  timer: number = 1
 
-  async mounted() {
-    await lotsModule.fetchLot(this.$route.params.id)
-    this.countDownTimer();
+  mounted() {
+    lotsModule.fetchLot(this.$route.params.id)
   }
   get lot() {
-    let lot = lotsModule.getLot
-    this.timer = lot['roll_time']
-    return lot
+    return lotsModule.getLot
   }
 
-  setTimer(time) {
-    this.timer = time;
+  get user() {
+    return usersModule.getUserInfo
   }
-
-  async joinLot() {
-    let token = VueCookieNext.getCookie('token');
-    if (!token) {
-      alert('Only authorized users can join to lot');
-      return
-    }
-    try {
-      let response = await axios
-          .post(process.env.VUE_APP_BACKEND_URL + '/api/join/' + this.$route.params.id, [],
-              {'headers': {'Authorization': 'Bearer ' + token}})
-      alert(response.data.data);
-    } catch (error) {
-      alert(error.response.data.data);
-    }
-  }
-  countDownTimer() {
-    if (this.timer > 0) {
-      setTimeout(() => {
-        this.timer -= 1
-        this.countDownTimer()
-      }, 1000)
-    }
-  }
-
 }
+
 </script>
+
+<style>
+.lotPageImage {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lotPageImage img {
+  width: 100%;
+  height: auto;
+}
+</style>

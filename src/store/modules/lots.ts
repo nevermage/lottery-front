@@ -1,5 +1,6 @@
 import {VuexModule, Module, Mutation, Action} from "vuex-module-decorators";
 import store from "../store";
+import {VueCookieNext} from "vue-cookie-next";
 
 @Module({ namespaced: true, name: 'lots', store: store})
 class lots extends VuexModule {
@@ -34,8 +35,7 @@ class lots extends VuexModule {
     get getLot() {
         return this.lot
     }
-
-
+    
     ownLots: object = []
     @Mutation
     addOwnLotsToState(ownLots: object): void {
@@ -49,6 +49,22 @@ class lots extends VuexModule {
     }
     get getOwnLots() {
         return this.ownLots
+    }
+    
+    myLots: object = []
+    @Mutation
+    addMyLotsToState(myLots: object): void {
+        this.myLots = myLots;
+    }
+    @Action({ commit: 'addMyLotsToState' })
+    async fetchMyLots() {
+        const headers = {"Authorization": 'Bearer ' + VueCookieNext.getCookie('token')}
+        const response = await fetch(this.url + '/api/my-lots', {headers});
+        let myLots = await response.json()
+        return myLots
+    }
+    get getMyLots() {
+        return this.myLots
     }
 
 

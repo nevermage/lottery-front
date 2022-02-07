@@ -3,8 +3,18 @@
     <div class="profilePageContainer">
       <div class="profilePageImageContainer">
         <img
+          v-if="user.image_path && user.image_path.includes('http')"
           :src="user.image_path"
           alt=""
+        >
+        <img
+          v-else-if="user.image_path"
+          :src="url + '/storage/' + user.image_path"
+          alt=""
+        >
+        <img
+          v-else
+          :src="url + '/storage/users/default/image.png'"
         >
       </div>
       <div class="profilePageInfo">
@@ -15,13 +25,24 @@
         <div class="profilePageLotsList">
           <strong>Own lotteries</strong>
           <div class="profilePageLinks">
-            <router-link
-              v-for="lot in ownLots"
-              :key="lot.id"
-              :to="{name: 'lot', params: {id: lot.id}}"
-            >
-              {{ lot.name }},
-            </router-link>
+            <div v-if="userInfo.id === user.id">
+              <router-link
+                v-for="lot in myLots"
+                :key="lot.id"
+                :to="{name: 'lot', params: {id: lot.id}}"
+              >
+                {{ lot.name }},
+              </router-link>
+            </div>
+            <div v-else>
+              <router-link
+                v-for="lot in ownLots"
+                :key="lot.id"
+                :to="{name: 'lot', params: {id: lot.id}}"
+              >
+                {{ lot.name }},
+              </router-link>
+            </div>
           </div>
         </div>
         <div class="profilePageLotsList">
@@ -58,10 +79,13 @@ import {usersModule, lotsModule} from "../store/store";
 import {VueCookieNext} from "vue-cookie-next";
 
 export default class profile extends Vue {
+  url = process.env.VUE_APP_BACKEND_URL
+
   mounted() {
     usersModule.fetchUser(this.$route.params.id)
     usersModule.fetchUserInfo()
     lotsModule.fetchOwnLots(this.$route.params.id)
+    lotsModule.fetchMyLots()
     lotsModule.fetchWonLots(this.$route.params.id)
   }
 
@@ -70,6 +94,9 @@ export default class profile extends Vue {
   }
   get userInfo() {
     return usersModule.getUserInfo
+  }
+  get myLots() {
+    return lotsModule.getMyLots
   }
   get ownLots() {
     return lotsModule.getOwnLots
@@ -84,3 +111,17 @@ export default class profile extends Vue {
   }
 }
 </script>
+
+<style>
+.profilePageImageContainer {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.profilePageImageContainer img {
+  width: 100%;
+}
+</style>

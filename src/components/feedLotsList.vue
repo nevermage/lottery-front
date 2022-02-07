@@ -9,6 +9,9 @@
     <div class="lotsContainer">
       <div class="lotsContainerHead">
         <strong>Lots to play</strong>
+        <router-link :to="{name: 'create-lot'}">
+          Create lot +
+        </router-link>
       </div>
       <li class="lotGrid">
         <lot-card
@@ -23,7 +26,7 @@
 
 <script lang="ts">
 import {Vue} from "vue-property-decorator";
-import {lotsModule, usersModule} from "../store/store";
+import {lotsModule} from "../store/store";
 
 export default class feedLotsList extends Vue{
   mounted() {
@@ -34,3 +37,19 @@ export default class feedLotsList extends Vue{
   }
 }
 </script>
+
+<style scoped>
+
+.lotsContainerHead a{
+  margin-right: 20px;
+  float: right;
+  color: #f5f5f5;
+  text-decoration: none;
+}
+
+.lotsContainerHead a:hover {
+  color: #ddd;
+  transition: .15s;
+}
+
+</style>
