@@ -52,7 +52,7 @@ export default class lotPageData extends Vue {
   mounted() {
     this.countDownTimer();
     setTimeout(() => {
-      this.timer = this.lot['roll_time']
+      this.timer = this.lot['roll_timer']
     }, 100)
   }
 

@@ -1,7 +1,7 @@
 <template>
   <main>
     <lot-page-edit
-      v-if="user.id === lot.creator_id && lot.status ==='accepted'"
+      v-if="user.id === lot.creator_id && (lot.status ==='accepted' || lot.status === 'unmoderated')"
       :lot="lot"
     />
     <lot-page-display

@@ -18,6 +18,21 @@
       <button @click="deleteImage">
         Delete image
       </button>
+      <div
+        v-if="lot.status === 'accepted'"
+        class="launchLot"
+      >
+        <h2>Your lot is ready to launch!</h2>
+        <h3>Set time and press launch</h3>
+        <Datepicker
+          v-model="date"
+        />
+        <send-form-button
+          @click="launch"
+        >
+          Launch
+        </send-form-button>
+      </div>
     </div>
     <div class="createLotRightContainer">
       <h2>Lot name:</h2>
@@ -41,6 +56,7 @@
 import {Prop, Vue} from "vue-property-decorator";
 import axios from "axios";
 import {VueCookieNext} from "vue-cookie-next";
+import {lotsModule} from "../store/store";
 
 export default class lotPageEdit extends Vue {
   url = process.env.VUE_APP_BACKEND_URL
@@ -48,8 +64,17 @@ export default class lotPageEdit extends Vue {
   name: string = ''
   description: string = ''
   image = null
+  date = null
 
   @Prop(Object) lot: object
+
+  getDate() {
+    let rollTime = ''
+    rollTime += this.date.toISOString().replace('T', ' ')
+    rollTime = rollTime.substr(0, rollTime.lastIndexOf('.'))
+
+    return rollTime
+  }
 
   mounted() {
     this.name = this.lot['name']
@@ -74,6 +99,7 @@ export default class lotPageEdit extends Vue {
               'Authorization': 'Bearer ' + VueCookieNext.getCookie('token')
             }
           })
+      lotsModule.fetchLot(this.lot['id']);
       alert(response.data.data)
     } catch (error) {
       alert(
@@ -83,6 +109,33 @@ export default class lotPageEdit extends Vue {
       );
     }
   }
+
+  async launch() {
+    if (this.date === null) {
+      alert('Set date firstly!')
+      return
+    }
+    try {
+      let response = await axios.post(this.url + '/api/set-roll-time/' + this.lot['id'],
+          {
+            'time': this.getDate()
+          },
+          {
+            headers: {
+              'Authorization': 'Bearer ' + VueCookieNext.getCookie('token')
+            }
+          });
+      lotsModule.fetchLot(this.lot['id']);
+      alert(response.data.data)
+    } catch (error) {
+      alert(
+          error.response.data.message
+              ? Object.values(error.response.data.errors)[0][0]
+              : error.response.data.error
+      );
+    }
+  }
+
   formData() {
     const data = new FormData()
     data.append('name', this.name)
@@ -107,3 +160,14 @@ export default class lotPageEdit extends Vue {
 }
 
 </script>
+
+<style scoped>
+.launchLot {
+  padding: 10px;
+  font-size: 30px;
+}
+
+.launchLot > * {
+  margin: 10px 0;
+}
+</style>
