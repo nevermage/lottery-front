@@ -7,6 +7,8 @@ import GAuth from 'vue3-google-oauth2'
 import googleAuthOptions from "./components/googleAuthOptions.vue";
 import Datepicker from 'vue3-date-time-picker';
 import 'vue3-date-time-picker/dist/main.css'
+import Cropper from "vue3-cropper";
+import 'vue3-cropper/lib/vue3-cropper.css';
 
 const app = createApp(App)
 
@@ -18,6 +20,7 @@ files.keys().map(key => {
 app.component('Datepicker', Datepicker);
 
 app
+    .use(Cropper)
     .use(GAuth, googleAuthOptions)
     .use(VueCookieNext)
     .use(router)

@@ -16,6 +16,7 @@
           accept="image/png, image/jpeg"
           @change="fileUpload"
         >
+        <crop-image />
       </div>
       <div class="createLotRightContainer">
         <h2>Lot name:</h2>
@@ -40,6 +41,7 @@
 import {Vue} from "vue-property-decorator";
 import axios from "axios";
 import {VueCookieNext} from "vue-cookie-next";
+
 
 export default class createLot extends Vue {
   file = null
@@ -74,7 +76,7 @@ export default class createLot extends Vue {
     if (this.file !== null) {
       data.append('imageFile', this.file)
     }
-    
+
     return data
   }
 
