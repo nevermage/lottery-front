@@ -59,7 +59,8 @@ import {VueCookieNext} from "vue-cookie-next";
 import {lotsModule} from "../store/store";
 
 export default class lotPageEdit extends Vue {
-  url = process.env.VUE_APP_BACKEND_URL
+  apiUrl = process.env.VUE_APP_BACKEND_URL
+  storageUrl = process.env.VUE_APP_MINIO_URL
   file = null
   name: string = ''
   description: string = ''
@@ -80,13 +81,13 @@ export default class lotPageEdit extends Vue {
     this.name = this.lot['name']
     this.description = this.lot['description']
     this.image = this.lot['image_path']
-        ? this.url + '/storage/' + this.lot['image_path']
-        : this.url + '/storage/lots/default/image.jpg'
+        ? this.storageUrl + this.lot['image_path']
+        : this.storageUrl + 'lots/default/image.jpg'
   }
 
   deleteImage() {
     this.file = null
-    this.image = this.url + '/storage/lots/default/image.jpg'
+    this.image = this.storageUrl + 'lots/default/image.jpg'
   }
 
   async updateLot() {
@@ -116,7 +117,7 @@ export default class lotPageEdit extends Vue {
       return
     }
     try {
-      let response = await axios.post(this.url + '/api/set-roll-time/' + this.lot['id'],
+      let response = await axios.post(this.apiUrl + '/api/set-roll-time/' + this.lot['id'],
           {
             'time': this.getDate()
           },
