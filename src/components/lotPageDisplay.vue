@@ -7,12 +7,12 @@
       <div class="lotPageImage">
         <img
           v-if="lot.image_path"
-          :src="url + '/storage/' + lot.image_path"
+          :src="storageUrl + lot.image_path"
           alt=""
         >
         <img
           v-else
-          :src="url + '/storage/lots/default/image.jpg'"
+          :src="storageUrl + 'lots/default/image.jpg'"
           alt=""
         >
       </div>
@@ -44,7 +44,7 @@ import {VueCookieNext} from "vue-cookie-next";
 import axios from "axios";
 
 export default class lotPageData extends Vue {
-  url = process.env.VUE_APP_BACKEND_URL
+  storageUrl = process.env.VUE_APP_MINIO_URL
   timer: number = 1
 
   @Prop(Object) lot: object

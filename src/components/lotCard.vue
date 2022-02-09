@@ -3,12 +3,12 @@
     <div class="lotGridCardImgContainer">
       <img
         v-if="lot.image_path"
-        :src="url + '/storage/' + lot.image_path"
+        :src="storageUrl + lot.image_path"
         alt="lot image"
       >
       <img
         v-else
-        :src="url + '/storage/lots/default/image.jpg'"
+        :src="storageUrl + 'lots/default/image.jpg'"
         alt="lot image"
       >
     </div>
@@ -28,7 +28,7 @@
 import { Vue, Prop } from 'vue-property-decorator'
 
 export default class lotCard extends Vue {
-  url = process.env.VUE_APP_BACKEND_URL
+  storageUrl = process.env.VUE_APP_MINIO_URL
   @Prop (Object) lot: object
 }
 

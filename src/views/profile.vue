@@ -9,12 +9,12 @@
         >
         <img
           v-else-if="user.image_path"
-          :src="url + '/storage/' + user.image_path"
+          :src="storageUrl + user.image_path"
           alt=""
         >
         <img
           v-else
-          :src="url + '/storage/users/default/image.png'"
+          :src="storageUrl + 'users/default/image.png'"
         >
       </div>
       <div class="profilePageInfo">
@@ -79,7 +79,7 @@ import {usersModule, lotsModule} from "../store/store";
 import {VueCookieNext} from "vue-cookie-next";
 
 export default class profile extends Vue {
-  url = process.env.VUE_APP_BACKEND_URL
+  storageUrl = process.env.VUE_APP_MINIO_URL
 
   mounted() {
     usersModule.fetchUser(this.$route.params.id)

@@ -10,12 +10,12 @@
           >
           <img
             v-else-if="winner.userImage"
-            :src="url + '/storage/' + winner.userImage"
+            :src="storageUrl + winner.userImage"
             alt=""
           >
           <img
             v-else
-            :src="url + '/storage/users/default/image.png'"
+            :src="storageUrl + 'users/default/image.png'"
           >
         </div>
         <router-link
@@ -30,12 +30,12 @@
         <div class="lotteryCellImageContainer">
           <img
             v-if="winner.image_path"
-            :src="url + '/storage/' + winner.image_path"
+            :src="storageUrl + winner.image_path"
             alt=""
           >
           <img
             v-else
-            :src="url + '/storage/lots/default/image.jpg'"
+            :src="storageUrl + 'lots/default/image.jpg'"
           >
         </div>
         <router-link
@@ -52,7 +52,7 @@
 import {Prop, Vue} from "vue-property-decorator";
 
 export default class winnersListItem extends Vue {
-  url = process.env.VUE_APP_BACKEND_URL
+  storageUrl = process.env.VUE_APP_MINIO_URL
 
   @Prop (Object) winner: object
 }
