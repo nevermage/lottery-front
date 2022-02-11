@@ -28,9 +28,9 @@ export default class googleSignUp extends Vue {
 
       const response = await fetch(
           process.env.VUE_APP_BACKEND_URL + '/api/google-login?token=' + googleToken);
-      let token = await response.json();
+      let tokenObj = await response.json();
 
-      VueCookieNext.setCookie('token', token);
+      VueCookieNext.setCookie('token', tokenObj.token);
       await usersModule.fetchUserInfo()
       this.$emit('close');
 

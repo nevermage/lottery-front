@@ -63,8 +63,8 @@ export default class facebookSignUp extends Vue {
   async signUpViaToken(fbToken) {
     const response = await fetch(process.env.VUE_APP_BACKEND_URL
         + '/api/facebook-login?token=' + fbToken);
-    let token = await response.json();
-    VueCookieNext.setCookie('token', token);
+    let tokenOBj = await response.json();
+    VueCookieNext.setCookie('token', tokenOBj.token);
     await usersModule.fetchUserInfo()
   }
 }
