@@ -61,7 +61,7 @@ export default class loginForm extends Vue {
             password: this.password,
           });
 
-      VueCookieNext.setCookie('token', response.data)
+      VueCookieNext.setCookie('token', response.data.token)
       await usersModule.fetchUserInfo()
       this.$emit('close')
       this.clearLoginData();
