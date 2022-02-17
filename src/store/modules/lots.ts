@@ -28,7 +28,13 @@ class lots extends VuexModule {
     }
     @Action({ commit: 'addLotToState' })
     async fetchLot(id) {
-        const response = await fetch(this.url + '/api/lot/' + id);
+        let response;
+        if (VueCookieNext.getCookie('token') === null) {
+            response = await fetch(this.url + '/api/lot/' + id);
+        } else {
+            const headers = {"Authorization": 'Bearer ' + VueCookieNext.getCookie('token')}
+            response = await fetch(this.url + '/api/lot/' + id, {headers});
+        }
         let lot = await response.json()
         return lot[0]
     }
